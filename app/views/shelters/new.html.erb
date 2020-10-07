@@ -1,0 +1,10 @@
+<form action="/tasks" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+  <p> Enter a new shelter:</p>
+  <input type='text' name='shelter[name]'/><br/>
+  <input type='text' name='shelter[address]'/><br/>
+  <input type='text' name='shelter[city]'/><br/>
+  <input type='text' name='shelter[state]'/><br/>
+  <input type='text' name='shelter[zip]'/><br/>
+  <input type='submit' />
+</form>
