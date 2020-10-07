@@ -1,10 +1,10 @@
-<form action="/tasks" method="post">
+<form action="/shelters" method="post">
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
   <p> Enter a new shelter:</p>
-  <input type='text' name='shelter[name]'/><br/>
-  <input type='text' name='shelter[address]'/><br/>
-  <input type='text' name='shelter[city]'/><br/>
-  <input type='text' name='shelter[state]'/><br/>
-  <input type='text' name='shelter[zip]'/><br/>
-  <input type='submit' />
+  <p>Shelter Name:</p><input type='text' name='shelter[name]'/><br/>
+  <p>Street Address:</p><input type='text' name='shelter[address]'/><br/>
+  <p>City:</p><input type='text' name='shelter[city]'/><br/>
+  <p>State:</p><input type='text' name='shelter[state]'/><br/>
+  <p>Zip Code:</p><input type='text' name='shelter[zip]'/><br/>
+  <input type='submit' value='Create Shelter'/>
 </form>
