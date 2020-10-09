@@ -22,4 +22,7 @@ class SheltersController < ApplicationController
     shelter.save
     redirect_to '/shelters'
   end
+
+  def update
+  end 
 end
