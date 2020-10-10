@@ -1,2 +1,3 @@
 class Shelter < ApplicationRecord
-end 
+  has_many :pets
+end
