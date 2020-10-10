@@ -5,12 +5,12 @@ describe 'As a visitor' do
     it 'has a list of pets and their information' do
       pet_1 = Pet.create(image: 'https://ibb.co/NLFhYVD',
                          name: 'Skye',
-                         approx_age: '3',
+                         approx_age: 3,
                          sex: 'Female',
                          shelter_name: 'Sunny Days Shelter')
      pet_2 = Pet.create(image: 'https://ibb.co/sWSpX6f',
                         name: 'Gigi',
-                        approx_age: '4',
+                        approx_age: 4,
                         sex: 'Female',
                         shelter_name: 'Happy Home')
       visit '/pets'
