@@ -11,21 +11,26 @@ describe 'As a visitor' do
       visit "/shelters/#{shelter_1.id}"
       expect(page).to have_link("Update Shelter")
       click_on("Update Shelter")
-      save_and_open_page
       expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
-      expect(page).to have_field('shelter[name]')
-      expect(page).to have_field('shelter[address]')
-      expect(page).to have_field('shelter[city]')
-      expect(page).to have_field('shelter[state]')
-      expect(page).to have_field('shelter[zip]')
+      expect(page).to have_field('name')
+      expect(page).to have_field('address')
+      expect(page).to have_field('city')
+      expect(page).to have_field('state')
+      expect(page).to have_field('zip')
     end
 
     it 'can fill out the form and the shelters info is updated, then redirect to /shelter/shelter.id' do
-      fill_in "shelter[name]", with: "Pretty Puppy Rescue"
-      fill_in "shelter[address]", with: "1234 Awesome Rd."
-      fill_in "shelter[city]", with: "Best Town"
-      fill_in "shelter[state]", with: "Colorado"
-      fill_in "shelter[zip]", with: 12345
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      visit "/shelters/#{shelter_1.id}/edit"
+      fill_in "name", with: "Pretty Puppy Rescue"
+      fill_in "address", with: "1234 Awesome Rd."
+      fill_in "city", with: "Best Town"
+      fill_in "state", with: "Colorado"
+      fill_in "zip", with: 12345
       click_button "Submit"
       expect(current_path).to eq("/shelters/#{shelter_1.id}")
       expect(page).to have_content("Pretty Puppy Rescue")
