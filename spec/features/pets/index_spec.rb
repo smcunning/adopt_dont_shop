@@ -14,14 +14,13 @@ describe 'As a visitor' do
                         sex: 'Female',
                         shelter_name: 'Happy Home')
       visit '/pets'
-      save_and_open_page
-      expect(page).to have_xpath("//image[contains(@src, '#{pet_1.image}')]")
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
       expect(page).to have_content("#{pet_1.name}")
       expect(page).to have_content("#{pet_1.approx_age}")
       expect(page).to have_content("#{pet_1.sex}")
       expect(page).to have_content("#{pet_1.shelter_name}")
 
-      expect(page).to have_xpath("//image[contains(@src, '#{pet_2.image}')]")
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_2.image}')]")
       expect(page).to have_content("#{pet_2.name}")
       expect(page).to have_content("#{pet_2.approx_age}")
       expect(page).to have_content("#{pet_2.sex}")
