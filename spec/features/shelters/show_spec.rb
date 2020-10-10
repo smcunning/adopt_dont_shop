@@ -31,8 +31,8 @@ describe 'As a visitor' do
     expect(page).to have_link("Delete Shelter")
     click_on("Delete Shelter")
     save_and_open_page
-    expect(current_path).to eq("/shelters/")
+    expect(current_path).to eq("/shelters")
     expect(page).to have_no_content("#{shelter_1.name}")
     end
   end
-end 
+end
