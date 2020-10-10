@@ -44,4 +44,9 @@ class SheltersController < ApplicationController
     Shelter.destroy(params[:id])
     redirect_to '/shelters'
   end
+
+  def pet_index
+   @shelter = Shelter.find(params[:id])
+   require "pry"; binding.pry
+ end
 end
