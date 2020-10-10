@@ -1,2 +1,6 @@
 class PetsController < ApplicationController
-end 
+
+  def index
+  end
+  
+end
