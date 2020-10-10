@@ -1,0 +1,14 @@
+<h2>Edit Shelter Information</h2>
+<%= form_with model: @shelters do |form|  %>
+  <%= form.label :name %>
+  <%= form.text_field :name %><br/>
+  <%= form.label :address %>
+  <%= form.text_field :address %><br/>
+  <%= form.label :city %>
+  <%= form.text_field :city %><br/>
+  <%= form.label :state %>
+  <%= form.text_field :state %><br/>
+  <%= form.label :zip %>
+  <%= form.text_field :zip %><br/>
+  <%= form.submit "Submit" %>
+<% end %>
