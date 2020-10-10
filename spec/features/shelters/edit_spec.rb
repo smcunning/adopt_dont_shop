@@ -11,7 +11,8 @@ describe 'As a visitor' do
       visit "/shelters/#{shelter_1.id}"
       expect(page).to have_link("Update Shelter")
       click_on("Update Shelter")
-      expect(current_path).to eq("/shelters/#{shelter.id}/edit")
+      save_and_open_page
+      expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
       expect(page).to have_field('shelter[name]')
       expect(page).to have_field('shelter[address]')
       expect(page).to have_field('shelter[city]')
@@ -20,6 +21,12 @@ describe 'As a visitor' do
     end
 
     it 'can fill out the form and the shelters info is updated, then redirect to /shelter/shelter.id' do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      visit "/shelters/#{shelter_1.id}/edit"
       fill_in "shelter[name]", with: "Pretty Puppy Rescue"
       fill_in "shelter[address]", with: "1234 Awesome Rd."
       fill_in "shelter[city]", with: "Best Town"
