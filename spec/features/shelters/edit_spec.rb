@@ -11,7 +11,8 @@ describe 'As a visitor' do
       visit "/shelters/#{shelter_1.id}"
       expect(page).to have_link("Update Shelter")
       click_on("Update Shelter")
-      expect(current_path).to eq("/shelters/#{shelter.id}/edit")
+      save_and_open_page
+      expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
       expect(page).to have_field('shelter[name]')
       expect(page).to have_field('shelter[address]')
       expect(page).to have_field('shelter[city]')
