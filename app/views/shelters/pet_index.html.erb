@@ -1,5 +1,5 @@
 <h2>Available Pets at <%= "#{@shelter.name}" %></h2>
-<% @shelter.pets.each do |pet| %>
+<% @pets.each do |pet| %>
   <%= image_tag(pet.image) %>
   <h3><%= pet.name %></h3>
   <p>Approximate Age: <%= pet.approx_age %></p>
