@@ -3,17 +3,18 @@ require 'rails_helper'
 describe 'As a visitor' do
   describe 'when I visit /pets' do
     it 'has a list of pets and their information' do
-      pet_1 = Pet.create(image: 'https://ibb.co/NLFhYVD',
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
                          name: 'Skye',
                          approx_age: 3,
                          sex: 'Female',
                          shelter_name: 'Sunny Days Shelter')
-     pet_2 = Pet.create(image: 'https://ibb.co/sWSpX6f',
+     pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
                         name: 'Gigi',
                         approx_age: 4,
                         sex: 'Female',
                         shelter_name: 'Happy Home')
       visit '/pets'
+      save_and_open_page
       expect(page).to have_xpath("//image[contains(@src, '#{pet_1.image}')]")
       expect(page).to have_content("#{pet_1.name}")
       expect(page).to have_content("#{pet_1.approx_age}")
