@@ -5,7 +5,6 @@ describe 'As a user' do
 
       visit home
 
-      save_and_open_page
       expect(page).to have_content("Adopt, Don't Shop!")
       expect(page).to have_link("Shelters")
     end
