@@ -36,6 +36,11 @@ class PetsController < ApplicationController
     redirect_to "/pets/#{pet.id}"
   end
 
+  def destroy
+    Pet.destroy(params[:id])
+    redirect_to '/pets'
+  end
+
   def pet_params
     params.permit(:image, :name, :description, :approx_age, :sex)
   end
