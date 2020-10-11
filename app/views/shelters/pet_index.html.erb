@@ -1,3 +1,7 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
 <h2>Available Pets at <%= link_to "#{@shelter.name}", "/shelters/#{@shelter.id}" %></h2>
 <% @pets.each do |pet| %>
   <%= image_tag(pet.image) %>
