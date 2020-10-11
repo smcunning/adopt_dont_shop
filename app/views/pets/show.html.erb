@@ -5,3 +5,4 @@
 <p>Sex: <%= @pet.sex %></p>
 <p>Adoptable: <%= @pet.adoptable%></p>
 <%= link_to "Update Pet", "/pets/#{@pet.id}/edit" %>
+<%= link_to "Delete Pet", "/pets/#{@pet.id}", method: :delete %>
