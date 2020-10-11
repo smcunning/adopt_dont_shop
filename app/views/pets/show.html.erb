@@ -1,3 +1,7 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
 <h3>Meet <%= @pet.name %>!</h3>
 <%= image_tag(@pet.image) %>
 <p>Description: <%= @pet.description %></p>

@@ -1,8 +1,14 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
 <h2>Available Pets</h2>
 <% @pets.each do |pet| %>
   <%= image_tag(pet.image) %>
-  <h3><%= pet.name %></h3>
+  <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
   <p>Approximate Age: <%= pet.approx_age %></p>
   <p>Sex: <%= pet.sex %></p>
   <p>Located At: <%= pet.shelter_name %></p>
+  <%= link_to "Edit Info for #{pet.name}", "/pets/#{ pet.id }/edit" %>
+  <%= link_to "Delete #{pet.name}", "/shelters/#{pet.id}", method: :delete %><br/>
 <% end %>

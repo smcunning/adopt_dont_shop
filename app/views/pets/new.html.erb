@@ -1,3 +1,7 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
 <h1>Enter a New Pet</h1>
 <%= form_tag("/shelters/#{ @shelter.id }/pets") do %>
   <%= label_tag :image %>

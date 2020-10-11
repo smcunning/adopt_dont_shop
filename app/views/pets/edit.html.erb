@@ -1,3 +1,7 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
 <h1>Update This Pet:</h1>
 <%= form_tag("/pets/#{@pet.id}", method: :patch) do %>
   <%= label_tag :image %>
