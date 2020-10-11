@@ -23,7 +23,6 @@ describe 'As a visitor' do
                         adoptable: true,
                         shelter_id: shelter_1.id)
       visit '/pets'
-      save_and_open_page
       expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
       expect(page).to have_content("#{pet_1.name}")
       expect(page).to have_content("#{pet_1.approx_age}")
@@ -104,7 +103,6 @@ describe 'As a visitor' do
       expect(page).to have_content("Gigi")
 
       visit "/shelters/#{shelter_1.id}/pets"
-      save_and_open_page
       expect(page).to have_link("Delete #{pet_2.name}")
       click_on("Delete #{pet_2.name}")
       expect(current_path).to eq("/pets")
