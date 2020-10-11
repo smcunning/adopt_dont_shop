@@ -18,6 +18,7 @@ describe 'Shelter Pet Creation' do
 
       visit "/shelters/#{shelter_1.id}/pets"
       click_on "Create Pet"
+      save_and_open_page
       expect(current_path).to eq("/shelters/#{shelter_1.id}/pets/new")
       expect(page).to have_field('image')
       expect(page).to have_field('name')
@@ -27,6 +28,18 @@ describe 'Shelter Pet Creation' do
     end
 
     it 'can fill in fields and create a new pet' do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                     address: '1234 Happy Lane',
+                                     city: 'Hopscotch Town',
+                                     state: 'Colorado',
+                                     zip: 12345)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         description: 'Shy and loveable!',
+                         adoptable: true,
+                         shelter_id: shelter_1.id)
       visit "/shelters/#{shelter_1.id}/pets/new"
 
       fill_in :image, with: "https://i.ibb.co/0CMggpV/pet-3.jpg"
@@ -35,10 +48,12 @@ describe 'Shelter Pet Creation' do
       fill_in :approx_age, with: 1
       fill_in :sex, with: "Male"
       click_button("Create Pet")
-
+      save_and_open_page
       expect(current_path).to eq("/shelters/#{shelter_1.id}/pets")
       expect(page).to have_content("Punkin")
-      expect(page).to have_content("Cuddly and good with dogs!")
-    end 
+      expect(page).to have_content(1)
+      expect(page).to have_content("Male")
+      expect(page).to have_content("Skye")
+    end
   end
 end
