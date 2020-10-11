@@ -1,17 +1,19 @@
 require 'rails_helper'
 describe 'Pet Show' do
-  describe 'when I visit '/pets/:id' do
-    it 'shows the pet with that id' do
+  describe 'when I visit /pets/:id' do
+      it 'shows the pet with that id' do
     pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
                        name: 'Skye',
                        approx_age: 3,
                        sex: 'Female',
-                       shelter_id: shelter_1.id)
+                       description: 'Shy and loveable!',
+                       adoptable: true)
     pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
                       name: 'Gigi',
                       approx_age: 4,
                       sex: 'Female',
-                      shelter_id: shelter_2.id)
+                      description: 'Talkative and playful!',
+                      adoptable: true)
 
 
     visit "/pets/#{pet_1.id}"
