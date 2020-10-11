@@ -24,7 +24,7 @@ describe 'Pet Show' do
 
 
     visit "/pets/#{pet_1.id}"
-    save_and_open_page
+
     expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
     expect(page).to have_content("#{pet_1.name}")
     expect(page).to have_content("#{pet_1.approx_age}")
@@ -61,7 +61,7 @@ describe 'As a visitor' do
 
     visit "/pets/#{pet_1.id}"
     expect(page).to have_link("Delete Pet")
-    click_on("Delete Shelter")
+    click_on("Delete Pet")
     expect(current_path).to eq("/pets")
     expect(page).to have_no_content("#{pet_1.name}")
     expect(page).to have_content("#{pet_2.name}")
