@@ -9,7 +9,7 @@ describe "As a visitor" do
                           state: "CO",
                           zip: 80111)
 
-      visit "/user/#{user.id}"
+      visit "/users/#{user.id}"
 
       expect(page).to have_content("#{user.name}")
       expect(page).to have_content("#{user.address}")
