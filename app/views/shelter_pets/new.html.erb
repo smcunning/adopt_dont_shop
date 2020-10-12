@@ -1,0 +1,23 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
+<h1>Enter a New Pet</h1>
+<%= form_tag("/shelters/#{ @shelter.id }/pets") do %>
+  <%= label_tag :image %>
+  <%= text_field_tag :image %><br/>
+
+  <%= label_tag :name %>
+  <%= text_field_tag :name %><br/>
+
+  <%= label_tag :description %>
+  <%= text_field_tag :description %><br/>
+
+  <%= label_tag :approximate_age%>
+  <%= text_field_tag :approx_age %><br/>
+
+  <%= label_tag :sex%>
+  <%= text_field_tag :sex%><br/>
+
+  <%= submit_tag "Create Pet" %>
+<% end %>
