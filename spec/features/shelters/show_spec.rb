@@ -77,20 +77,20 @@ describe "As a visitor" do
                                 image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
                                 user: "#{user.name}",
                                 shelter_id: "#{shelter_1.id}")
-      # review_2 = Review.create!(title: 'Great place!',
-      #                           rating: 4,
-      #                           content: 'I love Mr. Mittens!',
-      #                           user: "#{user.name}",
-      #                           shelter_id: "#{shelter_1.id}")
+      review_2 = Review.create!(title: 'Great place!',
+                                rating: 4,
+                                content: 'I love Mr. Mittens!',
+                                user: "#{user.name}",
+                                shelter_id: "#{shelter_1.id}")
 
       visit "/shelters/#{shelter_1.id}"
       save_and_open_page
       expect(page).to have_content('Best shelter ever.')
       expect(page).to have_content("#{user.name}")
-      expect(page).to have_content(9)
+      expect(page).to have_content(5)
       expect(page).to have_content('My new pet is the best!')
       expect(page).to have_xpath("//img[contains(@src,'#{review_1.image}')]")
-      # expect(page).to have_content('I love Mr. Mittens!')
+      expect(page).to have_content('I love Mr. Mittens!')
     end
   end
 end
