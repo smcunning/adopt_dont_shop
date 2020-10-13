@@ -1,0 +1,23 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
+<h1>Enter a New Review</h1>
+<%= form_tag("/shelters/#{ @shelter.id }/reviews") do %>
+  <%= label_tag :title %>
+  <%= text_field_tag :title %><br/>
+
+  <%= label_tag :your_rating %>
+  <%= text_field_tag :rating %><br/>
+
+  <%= label_tag :your_review %>
+  <%= text_field_tag :content %><br/>
+
+  <%= label_tag :your_name%>
+  <%= text_field_tag :user %><br/>
+
+  <%= label_tag :image%>
+  <%= text_field_tag :image%><br/>
+
+  <%= submit_tag "Submit" %>
+<% end %>
