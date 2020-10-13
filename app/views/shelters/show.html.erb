@@ -9,3 +9,12 @@
 <%= link_to "Update Shelter", "/shelters/#{@shelter.id}/edit" %>
 
 <%= link_to "Delete Shelter", "/shelters/#{@shelter.id}", method: :delete %>
+
+<% @reviews.each do |review| %>
+<p> <%= review.title %><br>
+  Rating: <%= review.rating %><br>
+  <%= review.content %><br>
+  <%= image_tag(review.image) %><br>
+  <%= review.user %>
+</p>
+<% end %>
