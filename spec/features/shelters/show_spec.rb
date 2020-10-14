@@ -67,6 +67,11 @@ describe "As a visitor" do
                                  city: 'Hopscotch Town',
                                  state: 'Colorado',
                                  zip: 12345)
+      shelter_2 = Shelter.create(name: "The Cat's Meow",
+                                 address: '654 Main',
+                                 city: 'Denver',
+                                 state: 'Colorado',
+                                 zip: 80111)
       user = User.create!(name: "Betty",
                           address: "123 Main st",
                           city: "Denver",
@@ -83,6 +88,11 @@ describe "As a visitor" do
                                 content: 'I love Mr. Mittens!',
                                 user: "#{user.name}",
                                 shelter_id: "#{shelter_1.id}")
+      review_3 = Review.create!(title: 'Most amazing.',
+                                rating: 4,
+                                content: 'I love Mr. Barks!',
+                                user: "#{user.name}",
+                                shelter_id: "#{shelter_2.id}")
 
       visit "/shelters/#{shelter_1.id}"
 
@@ -92,6 +102,7 @@ describe "As a visitor" do
       expect(page).to have_content('My new pet is the best!')
       expect(page).to have_xpath("//img[contains(@src,'#{review_1.image}')]")
       expect(page).to have_content('I love Mr. Mittens!')
+      expect(page).to have_no_content("I love Mr. Barks!")
     end
   end
 end
@@ -141,7 +152,24 @@ describe  "As a visitor" do
       expect(current_path).to eq("/shelters/#{shelter_1.id}")
       expect(page).to have_content("Stellar place!")
       expect(page).to have_xpath("//img[contains(@src,'https://i.ibb.co/fvxM0QB/Mr-Mittens.jpg')]")
-      save_and_open_page
+    end
+    it "Can't submit a review from a user not in the database" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+
+      visit "/shelters/#{shelter_1.id}/reviews/new"
+
+      fill_in :title, with: "Stellar place!"
+      fill_in :rating, with: 5
+      fill_in :content, with: "I love Mr. Mittens"
+      fill_in :user, with: "Joe"
+      fill_in :image, with: "https://i.ibb.co/fvxM0QB/Mr-Mittens.jpg"
+      click_on("Submit")
+
+      expect(current_path).to eq("/shelters/#{shelter_1.id}/reviews/new")
     end
   end
 end
