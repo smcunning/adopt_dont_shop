@@ -6,8 +6,12 @@ class ShelterReviewsController < ApplicationController
 
   def create
     shelter = Shelter.find(params[:id])
-    shelter.reviews.create!(review_params)
-    redirect_to "/shelters/#{shelter.id}"
+    if User.where(:name => params[:user]).empty?
+      redirect_to "/shelters/#{shelter.id}/reviews/new"
+    else
+      shelter.reviews.create!(review_params)
+      redirect_to "/shelters/#{shelter.id}"
+    end
   end
 
   def review_params
