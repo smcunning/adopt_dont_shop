@@ -9,6 +9,7 @@ class ShelterReviewsController < ApplicationController
     shelter = Shelter.find(params[:id])
     review = shelter.reviews.new(review_params)
     if user.nil?
+      flash[:notice] = "Not a valid User: Please enter the name of a registered user."
       redirect_to "/shelters/#{shelter.id}/reviews/new"
     else
       review[:user_id] = user.id
