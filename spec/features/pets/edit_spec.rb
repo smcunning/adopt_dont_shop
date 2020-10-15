@@ -77,7 +77,6 @@ describe 'visit /pets/:id' do
       fill_in :approx_age, with: 1
       fill_in :sex, with: "Male"
       click_button("Update Pet")
-      save_and_open_page
       expect(current_path).to eq("/pets/#{pet_1.id}")
       expect(page).to have_xpath("//img[contains(@src,'https://i.ibb.co/0CMggpV/pet-3.jpg')]")
       expect(page).to have_content("Punkin")

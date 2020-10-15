@@ -18,4 +18,10 @@ class ShelterPetsController < ApplicationController
   def pet_params
     params.permit(:image, :name, :description, :approx_age, :sex)
   end
+
+  def destroy
+    shelter = Shelter.find(params[:id])
+    Pet.destroy(params[:petid])
+    redirect_to "/pets"
+  end
 end

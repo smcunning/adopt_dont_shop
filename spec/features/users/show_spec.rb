@@ -43,19 +43,16 @@ describe "As a visitor" do
                                 rating: 5,
                                 content: 'My new pet is the best!',
                                 image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
-                                user: "#{user_1.name}",
                                 shelter_id: "#{shelter_1.id}",
                                 user_id: "#{user_1.id}")
       review_2 = Review.create!(title: 'Great place!',
                                 rating: 4,
                                 content: 'I love Mr. Mittens!',
-                                user: "#{user_1.name}",
                                 shelter_id: "#{shelter_1.id}",
                                 user_id: "#{user_1.id}")
       review_3 = Review.create!(title: 'Stellar!',
                                 rating: 4,
                                 content: 'Super duper clean',
-                                user: "#{user_2.name}",
                                 shelter_id: "#{shelter_1.id}",
                                 user_id: "#{user_2.id}")
 
@@ -68,7 +65,6 @@ describe "As a visitor" do
       expect(page).to have_content(4)
       expect(page).to have_content('I love Mr. Mittens!')
       expect(page).to have_no_content('Super duper clean')
-      save_and_open_page
     end
   end
 end

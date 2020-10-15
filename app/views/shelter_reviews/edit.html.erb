@@ -1,0 +1,24 @@
+<nav>
+  <%= link_to 'All Shelters', '/shelters' %>
+  <%= link_to 'Available Pets', '/pets' %>
+</nav>
+<h1>Update This Review:</h1>
+<%= form_tag("/shelters/#{@review.shelter_id}/reviews/#{@review.id}", method: :patch) do %>
+
+  <%= label_tag :title %>
+  <%= text_field_tag :title, "#{@review.title}" %><br/>
+
+  <%= label_tag :rating %>
+  <%= text_field_tag :rating, "#{@review.rating}" %><br/>
+
+  <%= label_tag :content%>
+  <%= text_field_tag :content, "#{@review.content}" %><br/>
+
+  <%= label_tag :image %>
+  <%= text_field_tag :image, "#{@review.image}" %><br/>
+
+  <%= label_tag :user%>
+  <%= text_field_tag :user, "#{@review.user.name}"%><br/>
+
+  <%= submit_tag "Update Review" %>
+<% end %>

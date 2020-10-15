@@ -18,7 +18,6 @@ describe 'Shelter Pet Creation' do
 
       visit "/shelters/#{shelter_1.id}/pets"
       click_on "Create Pet"
-      save_and_open_page
       expect(current_path).to eq("/shelters/#{shelter_1.id}/pets/new")
       expect(page).to have_field('image')
       expect(page).to have_field('name')
@@ -48,7 +47,6 @@ describe 'Shelter Pet Creation' do
       fill_in :approx_age, with: 1
       fill_in :sex, with: "Male"
       click_button("Create Pet")
-      save_and_open_page
       expect(current_path).to eq("/shelters/#{shelter_1.id}/pets")
       expect(page).to have_content("Punkin")
       expect(page).to have_content(1)

@@ -5,16 +5,35 @@ class ShelterReviewsController < ApplicationController
   end
 
   def create
+    user = User.find_by(name: params[:user_name])
     shelter = Shelter.find(params[:id])
-    if User.where(:name => params[:user]).empty?
+    review = shelter.reviews.new(review_params)
+    if user.nil?
       redirect_to "/shelters/#{shelter.id}/reviews/new"
     else
-      shelter.reviews.create!(review_params)
+      review[:user_id] = user.id
+      review.save
       redirect_to "/shelters/#{shelter.id}"
     end
   end
 
   def review_params
-    params.permit(:title, :rating, :content, :user, :image)
+    params.permit(:title, :rating, :content, :image)
+  end
+
+  def edit
+    @review = Review.find(params[:id])
+  end
+
+  def update
+    review = Review.find(params[:id])
+    review.update({
+      title: params[:title],
+      rating: params[:rating],
+      content: params[:content],
+      image: params[:image]
+      })
+      review.save
+    redirect_to "/shelters/#{review.shelter.id}"
   end
 end

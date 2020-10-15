@@ -12,11 +12,13 @@
 
 <%= link_to "Add a Review", "/shelters/#{@shelter.id}/reviews/new" %>
 
-<% @reviews.each do |review| %>
+<% @shelter.reviews.each do |review| %>
 <p> <%= review.title %><br>
+  <%= image_tag(review.image) %><br>
   Rating: <%= review.rating %><br>
   <%= review.content %><br>
-  <%= image_tag(review.image) %><br>
-  <%= review.user %>
+  <%= review.user.name %><br>
+  <%= link_to "Edit Review", "/shelters/#{@shelter.id}/reviews/#{review.id}/edit" %>
+
 </p>
 <% end %>
