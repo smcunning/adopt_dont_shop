@@ -205,3 +205,34 @@ describe "As a visitor," do
     end
   end
 end
+
+describe "As a visitor," do
+  describe "When I visit a shelter's show page," do
+    it "Then I see a link next to each shelter review to delete the review." do
+    shelter_1 = Shelter.create(name: 'Happy Home',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    review_1 = Review.create!(title: 'Tubular!',
+                              rating: 5,
+                              content: 'My new pet is the best!',
+                              image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                              user_id: "#{user.id}",
+                              shelter_id: "#{shelter_1.id}")
+
+    visit "/shelters/#{shelter_1.id}"
+
+    expect(page).to have_link("Delete Review")
+
+    click_link("Delete Review")
+
+    expect(page).not_to have_content("#{review_1.title}")
+    end
+  end
+end

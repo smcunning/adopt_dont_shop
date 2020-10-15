@@ -59,10 +59,11 @@ describe 'As a visitor' do
                                  state: 'Colorado',
                                  zip: 67891)
       visit '/shelters'
-      expect(page).to have_link("Edit Info for #{shelter_1.name}")
-      click_on("Edit Info for #{shelter_1.name}")
-      expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
-
+      within("#shelter-review-#{shelter_1.id}") do
+        expect(page).to have_link("Edit Info for #{shelter_1.name}")
+        click_on("Edit Info for #{shelter_1.name}")
+        expect(current_path).to eq("/shelters/#{shelter_1.id}/edit")
+      end
       visit '/shelters'
       expect(page).to have_link("Edit Info for #{shelter_2.name}")
       click_on("Edit Info for #{shelter_2.name}")
@@ -85,12 +86,14 @@ describe 'As a visitor' do
                                  state: 'Colorado',
                                  zip: 67891)
       visit '/shelters'
-      expect(page).to have_link("Delete #{shelter_1.name}")
-      click_on("Delete #{shelter_1.name}")
-      expect(current_path).to eq("/shelters")
-      expect(page).to have_no_content("Sunny Days Shelter")
-      expect(page).to have_content("Happy Home")
 
+      within("#shelter-review-#{shelter_2.id}") do
+        expect(page).to have_link("Delete #{shelter_2.name}")
+        click_on("Delete #{shelter_2.name}")
+      end
+        expect(current_path).to eq("/shelters")
+        expect(page).to have_no_content("Happy Home")
+        expect(page).to have_content("Sunny Days Shelter")
     end
   end
 end

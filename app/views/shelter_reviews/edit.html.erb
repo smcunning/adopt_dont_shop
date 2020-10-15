@@ -1,7 +1,3 @@
-<nav>
-  <%= link_to 'All Shelters', '/shelters' %>
-  <%= link_to 'Available Pets', '/pets' %>
-</nav>
 <h1>Update This Review:</h1>
 <%= form_tag("/shelters/#{@review.shelter_id}/reviews/#{@review.id}", method: :patch) do %>
 
