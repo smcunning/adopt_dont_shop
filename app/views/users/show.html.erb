@@ -1,3 +1,11 @@
 <h1><%= @user.name %></h1>
 <p><%= @user.address %><br/>
 <%= @user.city %>, <%= @user.state %> <%= @user.zip %></p>
+
+<% @reviews.each do |review| %>
+<h1><%= @user.name %>: Reviews</h1>
+<p> <%= review.title %><br>
+  Rating: <%= review.rating %><br>
+  <%= review.content %><br>
+</p>
+<% end %>

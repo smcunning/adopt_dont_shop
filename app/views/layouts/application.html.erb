@@ -10,6 +10,17 @@
   </head>
 
   <body>
+    <header>
+      <h1>Adopt, Don't Shop!</h1>
+    </header>
+    <nav class="nav">
+     <a class="nav-link active" href="/shelters">All Shelters</a>
+     <a class="nav-link active" href="/pets">Available Pets</a>
+   </nav>
+
+   <% flash.each do |type, message| %>
+     <p>💥 <%= message %> 💥</p>
+   <% end %>
     <%= yield %>
   </body>
 </html>

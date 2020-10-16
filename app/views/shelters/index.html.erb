@@ -1,12 +1,11 @@
-<nav>
-  <%= link_to 'All Shelters', '/shelters' %>
-  <%= link_to 'Available Pets', '/pets' %>
-</nav>
 <h1> Shelters </h1>
 <% @shelters.each do |shelter| %>
+<section id='shelter-review-<%=shelter.id%>'>
   <h3><a href="/shelters/<%= shelter.id %>"><%= shelter.name %></h3>
   <%= link_to "Edit Info for #{shelter.name}", "/shelters/#{shelter.id}/edit" %>
   <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
+</section>
 <% end %>
 <br/>
+
 <a href="/shelters/new">Add a Shelter</a>

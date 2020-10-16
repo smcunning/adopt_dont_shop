@@ -87,14 +87,14 @@ describe 'As a visitor' do
                         sex: 'Female',
                         description: 'Shy and loveable!',
                         adoptable: true,
-                        shelter_id: shelter_1.id)
+                        shelter_id: "#{shelter_1.id}")
      pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
                         name: 'Gigi',
                         approx_age: 4,
                         sex: 'Female',
                         description: 'Talkative and playful!',
                         adoptable: true,
-                        shelter_id: shelter_1.id)
+                        shelter_id: "#{shelter_1.id}")
       visit '/pets'
       expect(page).to have_link("Delete #{pet_1.name}")
       click_on("Delete #{pet_1.name}")

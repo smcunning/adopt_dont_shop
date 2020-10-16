@@ -5,6 +5,7 @@ class SheltersController < ApplicationController
 
   def show
     @shelter = Shelter.find(params[:id])
+    @reviews = Review.where(:shelter_id => @shelter.id)
   end
 
   def new
@@ -24,7 +25,7 @@ class SheltersController < ApplicationController
   end
 
   def edit
-      @shelter = Shelter.find(params[:id])
+    @shelter = Shelter.find(params[:id])
   end
 
   def update
