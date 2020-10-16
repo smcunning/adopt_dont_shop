@@ -14,7 +14,7 @@
   <%= text_field_tag :image, "#{@review.image}" %><br/>
 
   <%= label_tag :user%>
-  <%= text_field_tag :user, "#{@review.user.name}"%><br/>
+  <%= text_field_tag :user_name, "#{@review.user.name}"%><br/>
 
   <%= submit_tag "Update Review" %>
 <% end %>

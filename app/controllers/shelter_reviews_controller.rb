@@ -30,6 +30,7 @@ class ShelterReviewsController < ApplicationController
   end
 
   def update
+    user = User.find_by(name: params[:user_name])
     shelter = Shelter.find(params[:id])
     review = Review.find(params[:review_id])
     review.update({
@@ -38,7 +39,10 @@ class ShelterReviewsController < ApplicationController
       content: params[:content],
       image: params[:image]
       })
-    if review.valid?
+    if user.nil?
+      flash[:notice] = "User does not exist, please enter valid user"
+      redirect_to "/shelters/#{shelter.id}/reviews/#{review.id}/edit"
+    elsif review.valid?
         review.save
         redirect_to "/shelters/#{review.shelter.id}"
     else
