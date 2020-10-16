@@ -73,3 +73,40 @@ describe "As a vistor" do
     expect(page).to have_content("#{review_1.user.name}")
   end
 end
+
+describe "As a visitor" do
+  describe "When I visit the page to edit a review, and I fail to enter
+  a title, rating, and/or content in the edit shelter review form" do
+    it "I see a flash message indicating that I need to fill in a title,
+    rating, and content in order to edit the review and returned to the edit form" do
+    shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    review_1 = Review.create!(title: 'Best shelter ever.',
+                              rating: 5,
+                              content: 'My new pet is the best!',
+                              image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                              user_id: "#{user.id}",
+                              shelter_id: "#{shelter_1.id}")
+
+    visit "/shelters/#{shelter_1.id}/reviews/#{review_1.id}/edit"
+
+    fill_in :title, with: ""
+    fill_in :rating, with: 5
+    fill_in :image, with: ""
+    fill_in :content, with: "They called me names."
+
+    click_button("Update Review")
+
+    expect(current_path).to eq("/shelters/#{shelter_1.id}/reviews/#{review_1.id}/edit")
+    expect(page).to have_content("Title, Rating, and Content cannot be blank.")
+    end
+  end
+end

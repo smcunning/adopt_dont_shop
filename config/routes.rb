@@ -33,7 +33,7 @@ Rails.application.routes.draw do
   #Shelter_Reviews
   get '/shelters/:id/reviews/new', to: 'shelter_reviews#new'
   post '/shelters/:id/reviews', to: 'shelter_reviews#create'
-  get '/shelters/:id/reviews/:id/edit', to: 'shelter_reviews#edit'
-  patch '/shelters/:id/reviews/:id', to: 'shelter_reviews#update'
+  get '/shelters/:id/reviews/:review_id/edit', to: 'shelter_reviews#edit'
+  patch '/shelters/:id/reviews/:review_id', to: 'shelter_reviews#update'
   delete '/shelters/:id/reviews/:review_id', to: 'shelter_reviews#destroy'
 end

@@ -26,19 +26,25 @@ class ShelterReviewsController < ApplicationController
   end
 
   def edit
-    @review = Review.find(params[:id])
+    @review = Review.find(params[:review_id])
   end
 
   def update
-    review = Review.find(params[:id])
+    shelter = Shelter.find(params[:id])
+    review = Review.find(params[:review_id])
     review.update({
       title: params[:title],
       rating: params[:rating],
       content: params[:content],
       image: params[:image]
       })
-      review.save
-    redirect_to "/shelters/#{review.shelter.id}"
+    if review.valid?
+        review.save
+        redirect_to "/shelters/#{review.shelter.id}"
+    else
+      flash[:notice] = "Title, Rating, and Content cannot be blank."
+      redirect_to "/shelters/#{shelter.id}/reviews/#{review.id}/edit"
+    end
   end
 
   def destroy
