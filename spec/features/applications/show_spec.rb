@@ -167,8 +167,9 @@ describe 'submit an application' do
       end
 
       within ".submit-app" do
-        expect(page).to have_field("Description")
+        expect(page).to have_field(:description)
         expect(page).to have_button("Submit Application")
+        fill_in :description, with: "I am the best fetch partner."
         click_button("Submit Application")
       end
 
@@ -212,6 +213,7 @@ describe 'incomplete applications for submitting' do
     within ".submit-app" do
       click_button("Submit Application")
     end
+    save_and_open_page
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("In Progress")
     expect(page).to have_content("You must enter a description.")
