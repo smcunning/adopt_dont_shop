@@ -29,6 +29,16 @@ class User < ApplicationRecord
       content: worst.content,
       image: worst.image
     }
+    else
+    {
+      title: "Nothing found.",
+      rating: "Nothing found.",
+      content: "Nothing found.",
+    }
     end
+  end
+
+  def average_review
+    average = (reviews.sum(:rating) / reviews.count(:rating).to_f).round(2)
   end
 end

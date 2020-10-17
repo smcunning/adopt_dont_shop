@@ -129,3 +129,42 @@ describe 'Within the highlighted reviews on user show page'do
     end
   end
 end
+
+describe "As a visitor" do
+  describe "When I visit a User's show page" do
+    it "I see the average rating of all of their reviews" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user_1 = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      review_1 = Review.create!(title: 'Best shelter ever.',
+                                rating: 5,
+                                content: 'My new pet is the best!',
+                                image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                                shelter_id: "#{shelter_1.id}",
+                                user_id: "#{user_1.id}")
+      review_2 = Review.create!(title: 'Great place!',
+                                rating: 4,
+                                content: 'I love Mr. Mittens!',
+                                shelter_id: "#{shelter_1.id}",
+                                user_id: "#{user_1.id}")
+      review_3 = Review.create!(title: 'Will not be returning',
+                                rating: 1,
+                                content: 'No one was working',
+                                shelter_id: "#{shelter_1.id}",
+                                user_id: "#{user_1.id}")
+
+      visit "/users/#{user_1.id}"
+
+      within ".average" do
+        expect(page).to have_content(user_1.average_review)
+      end
+    end
+  end
+end

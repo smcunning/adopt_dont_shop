@@ -6,6 +6,39 @@ describe User, type: :model do
   end
 
   describe "instance methods" do
+    it "average_review_rating" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user_1 = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      review_1 = Review.create!(title: 'Best shelter ever.',
+                                rating: 5,
+                                content: 'My new pet is the best!',
+                                image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                                shelter_id: "#{shelter_1.id}",
+                                user_id: "#{user_1.id}")
+      review_2 = Review.create!(title: 'Great place!',
+                                rating: 4,
+                                content: 'I love Mr. Mittens!',
+                                shelter_id: "#{shelter_1.id}",
+                                user_id: "#{user_1.id}")
+      review_3 = Review.create!(title: 'Will not be returning',
+                                rating: 1,
+                                content: 'No one was working',
+                                shelter_id: "#{shelter_1.id}",
+                                user_id: "#{user_1.id}")
+
+      average = ((review_1.rating + review_2.rating + review_3.rating) / 3.to_f).round(2)
+
+      expect(user_1.average_review).to eq(average)
+    end
+
      it "best_review" do
        shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
                                   address: '1234 Happy Lane',
