@@ -38,5 +38,6 @@ Rails.application.routes.draw do
   delete '/shelters/:id/reviews/:review_id', to: 'shelter_reviews#destroy'
 
   #Applications
+  get 'applications/new', to: "applications#new"
   get '/applications/:id', to: "applications#show"
 end
