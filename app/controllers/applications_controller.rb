@@ -11,9 +11,9 @@ class ApplicationsController < ApplicationController
   def create
     user = User.find_by(name: params[:user_name])
     if user
-      app = user.applications.create(app_params)
-      app[:status] = "In Progress"
-      app.save
+      application = user.applications.create(app_params)
+      application[:status] = "In Progress"
+      application.save
       redirect_to "/applications/#{app.id}"
     else
       flash[:notice] = "Please enter an existing user name."
@@ -26,6 +26,8 @@ class ApplicationsController < ApplicationController
     if params[:pet]
       pet = Pet.find(params[:pet])
       application.pets << pet
+    elsif params[:description].empty?
+      flash[:notice] = "You must enter a description."
     else
       application[:description] = params[:description]
       application[:status] = "Pending"
