@@ -171,11 +171,49 @@ describe 'submit an application' do
         expect(page).to have_button("Submit Application")
         click_button("Submit Application")
       end
+
       expect(current_path).to eq("/applications/#{application.id}")
       expect(page).to have_content("Pending")
       expect(page).to have_content(pet_1.name)
       expect(page).to_not have_button("Adopt This Pet")
       expect(page).to_not have_field(:pet_name)
     end
+  end
+end
+
+describe 'incomplete applications for submitting' do
+  it 'will redirect back to the show page with a flash message' do
+    shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                       name: 'Skye',
+                       approx_age: 3,
+                       sex: 'Female',
+                       shelter_id: shelter_1.id)
+    application = Application.create!(status: "In Progress",
+                                      user_id: user.id)
+
+    visit "/applications/#{application.id}"
+    fill_in :pet_name, with: "Skye"
+    click_button("Submit")
+
+    within "#pet-#{pet_1.id}" do
+      click_button("Adopt This Pet")
+    end
+
+    within ".submit-app" do
+      click_button("Submit Application")
+    end
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content("In Progress")
+    expect(page).to have_content("You must enter a description.")
   end
 end
