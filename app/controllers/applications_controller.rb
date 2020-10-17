@@ -21,6 +21,13 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    application = Application.find(params[:id])
+    pet = Pet.find(params[:pet])
+    application.pets << pet
+    redirect_to "/applications/#{application.id}"
+  end
+
   def app_params
     params.permit(:status, :description)
   end
