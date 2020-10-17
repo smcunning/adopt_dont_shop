@@ -9,14 +9,14 @@
   <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
   <% end %><br/>
-  <%= @application.status %><br/>
+  <p>Application Status: <%= @application.status %><br/></p>
 </section>
 
 <% if !@application.pets.empty? %>
 <section class="submit-app">
   <%= form_tag "/applications/#{@application.id}", method: :patch do %>
-  <%= label_tag :description %>
-  <%= text_field_tag :description, "Why are you a good owner for this pet?" %>
+  <p><%= label_tag :why_are_you_a_good_pet_owner %>?</p>
+  <%= text_field_tag :description %><br>
   <%= submit_tag "Submit Application" %>
   <% end %>
 </section>
