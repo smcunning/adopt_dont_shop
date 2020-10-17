@@ -11,6 +11,18 @@
   <% end %><br/>
   <%= @application.status %><br/>
 </section>
+
+<% if !@application.pets.empty? %>
+<section class="submit-app">
+  <%= form_tag "/applications/#{@application.id}", method: :patch do %>
+  <%= label_tag :description %>
+  <%= text_field_tag :description, "Why are you a good owner for this pet?" %>
+  <%= submit_tag "Submit Application" %>
+  <% end %>
+</section>
+<% end %>
+
+<% if @application.status == "In Progress" %>
 <section class="find-pet">
   <%= form_tag "/applications/#{@application.id}", method: :get do %>
   <%= label_tag :pet_name %>
@@ -29,3 +41,4 @@
   </section>
   <% end %>
 </section>
+<% end %>
