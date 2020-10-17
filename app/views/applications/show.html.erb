@@ -10,3 +10,18 @@
   <% end %>
   <%= @application.status %>
 </section>
+<section class="find-pet">
+  <%= form_tag "/applications/#{@application.id}", method: :get do %>
+  <%= label_tag :pet_name %>
+  <%= search_field_tag :pet_name, "Find Pet" %>
+  <%= submit_tag "Submit" %>
+  <% end %>
+</section>
+<section class="pet-results">
+  <% @pets.each do |pet| %>
+  <%= image_tag(pet.image) %>
+  <%= pet.name %>
+  <%= pet.approx_age %>
+  <%= pet.sex%>
+  <% end %>
+</section>
