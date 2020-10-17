@@ -27,7 +27,6 @@ describe 'as a visitor' do
 
       visit "applications/#{application.id}"
 
-
       within(".user-info") do
         expect(page).to have_content(user.name)
         expect(page).to have_content(user.full_address)

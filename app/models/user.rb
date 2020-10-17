@@ -42,4 +42,8 @@ class User < ApplicationRecord
   def average_review
     average = (reviews.sum(:rating) / reviews.count(:rating).to_f).round(2)
   end
+
+  def full_address
+    "#{self.address}, #{self.city}, #{self.state} #{self.zip}"
+  end
 end
