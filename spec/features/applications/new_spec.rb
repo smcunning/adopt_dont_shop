@@ -20,7 +20,7 @@ describe 'when i visit applications/new' do
         expect(page).to have_field("user_name")
         expect(page).to have_button("Submit")
       end
-
+      fill_in :user_name, with: user.name
       click_button("Submit")
 
       within('.user-info') do

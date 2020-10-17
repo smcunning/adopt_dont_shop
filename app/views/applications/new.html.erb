@@ -1,1 +1,9 @@
 <h1>New Application</h1>
+<section class="app-form">
+<%= form_tag("/applications/new") do %>
+  <%= label_tag :user_name %>
+  <%= text_field_tag :user_name %><br/>
+
+  <%= submit_tag "Submit" %>
+<% end %>
+</section>
