@@ -67,9 +67,6 @@ describe 'Add pet to application section' do
     application = Application.create!(description: "I will take great care of Skye",
                                       status: "In Progress",
                                       user_id: user.id)
-    # pet_application = PetApplication.create!(pet_id: pet_1.id,
-    #                                          user_id: user.id,
-    #                                          application_id: application.id)
 
     visit "/applications/#{application.id}"
 
@@ -80,7 +77,7 @@ describe 'Add pet to application section' do
     fill_in :pet_name, with: "Skye"
     click_button("Submit")
     expect(current_path).to eq("/applications/#{application.id}")
-      save_and_open_page
+
     #need testing for order - that the search bar is on top of the pet results
 
     within '.pet-results'do
@@ -93,5 +90,50 @@ describe 'Add pet to application section' do
       expect(page).to have_content(pet_2.approx_age)
       expect(page).to have_content(pet_2.sex)
     end
+  end
+
+  it 'has a link next to each pet to adopt this pet' do
+    shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                       name: 'Skye',
+                       approx_age: 3,
+                       sex: 'Female',
+                       shelter_id: shelter_1.id)
+   pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
+                      name: 'Skye',
+                      approx_age: 1,
+                      sex: 'Male',
+                      shelter_id: shelter_1.id)
+    application = Application.create!(description: "I will take great care of Skye",
+                                      status: "In Progress",
+                                      user_id: user.id)
+    visit "/applications/#{application.id}"
+    fill_in :pet_name, with: "Skye"
+    click_button("Submit")
+
+    within "#pet-#{pet_1.id}" do
+      expect(page).to have_button("Adopt This Pet")
+    end
+
+    within "#pet-#{pet_2.id}" do
+      expect(page).to have_button("Adopt This Pet")
+    end
+
+    within "#pet-#{pet_1.id}" do
+      click_button("Adopt This Pet")
+    end
+    save_and_open_page
+    expect(current_path).to eq("/applications/#{application.id}")
+    expect(page).to have_content(pet_1.name)
+    expect(page).to_not have_content(pet_2.sex)
   end
 end
