@@ -1,14 +1,15 @@
 <h1>Application</h1>
 <section class="user-info">
-  <%= @application.user.name %>
+  <h3><%= @application.user.name %></h3><br/>
   <%= @application.user.full_address %>
 </section>
+<br>
 <section class="application">
-  <%= @application.description %>
+  <%= @application.description %><br/>
   <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
-  <% end %>
-  <%= @application.status %>
+  <% end %><br/>
+  <%= @application.status %><br/>
 </section>
 <section class="find-pet">
   <%= form_tag "/applications/#{@application.id}", method: :get do %>
@@ -16,12 +17,12 @@
   <%= search_field_tag :pet_name, "Find Pet" %>
   <%= submit_tag "Submit" %>
   <% end %>
-</section>
+</section><br/>
 <section class="pet-results">
   <% @pets.each do |pet| %>
-  <%= image_tag(pet.image) %>
-  <%= pet.name %>
-  <%= pet.approx_age %>
-  <%= pet.sex%>
+  <%= image_tag(pet.image) %><br/>
+  <p>Pet Name: <%= pet.name %></p>
+  <p>Age: <%= pet.approx_age %></p>
+  <p>Sex: <%= pet.sex%></p><br/>
   <% end %>
 </section>
