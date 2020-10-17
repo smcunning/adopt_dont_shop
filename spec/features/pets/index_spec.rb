@@ -110,3 +110,36 @@ describe 'As a visitor' do
     end
   end
 end
+
+describe 'as a visitor' do
+  describe 'the pet index page has a link to Start an Application' do
+    it 'takes me to /applications/new' do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+     pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                        name: 'Skye',
+                        approx_age: 3,
+                        sex: 'Female',
+                        description: 'Shy and loveable!',
+                        adoptable: true,
+                        shelter_id: "#{shelter_1.id}")
+     pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
+                        name: 'Gigi',
+                        approx_age: 4,
+                        sex: 'Female',
+                        description: 'Talkative and playful!',
+                        adoptable: true,
+                        shelter_id: "#{shelter_1.id}")
+
+
+      visit '/pets'
+
+      expect(page).to have_link("Start an Application")
+      click_link("Start an Application")
+      expect(current_path).to eq('/applications/new')
+    end
+  end
+end
