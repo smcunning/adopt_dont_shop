@@ -5,6 +5,7 @@ class UsersController < ApplicationController
     @reviews = Review.where(:user_id => @user.id)
     @best_review = @user.best_review
     @worst_review = @user.worst_review
+    @average_review = @user.average_review
   end
 
   def new

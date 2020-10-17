@@ -3,6 +3,12 @@
 <%= @user.city %>, <%= @user.state %> <%= @user.zip %></p>
 
 <h2>Highlight Reviews</h2>
+<section class="average">
+  <h3><%= @user.name %>'s Average Rating:</h3>
+  <%= @average_review %>
+</section>
+<br>
+<br>
 <section class="best">
   <h3><%= @user.name %>'s Best Rated Shelter</h3>
   <%= image_tag @best_review[:image] if @best_review[:image]%>
@@ -20,8 +26,8 @@
   <p>Review: <%= @worst_review[:content] %></p>
 </section>
 
+<h1><%= @user.name %>'s Reviews:</h1>
 <% @reviews.each do |review| %>
-<h1><%= @user.name %>: Reviews</h1>
 <p> <%= review.title %><br>
   Rating: <%= review.rating %><br>
   <%= review.content %><br>
