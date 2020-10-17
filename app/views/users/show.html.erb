@@ -2,6 +2,24 @@
 <p><%= @user.address %><br/>
 <%= @user.city %>, <%= @user.state %> <%= @user.zip %></p>
 
+<h2>Highlight Reviews</h2>
+<section class="best">
+  <h3><%= @user.name %>'s Best Rated Shelter</h3>
+  <%= image_tag @best_review[:image] if @best_review[:image]%>
+  <p><%= @best_review[:title] %></p>
+  <p>Rating: <%= @best_review[:rating] %></p>
+  <p>Review: <%= @best_review[:content] %></p>
+</section>
+<br/>
+<br/>
+<section class="worst">
+  <h3><%= @user.name %>'s Worst Rated Shelter</h3>
+  <%= image_tag @worst_review[:image] if @worst_review[:image]%>
+  <p><%= @worst_review[:title] %></p>
+  <p>Rating: <%= @worst_review[:rating] %></p>
+  <p>Review: <%= @worst_review[:content] %></p>
+</section>
+
 <% @reviews.each do |review| %>
 <h1><%= @user.name %>: Reviews</h1>
 <p> <%= review.title %><br>
