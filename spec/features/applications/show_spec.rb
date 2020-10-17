@@ -131,9 +131,51 @@ describe 'Add pet to application section' do
     within "#pet-#{pet_1.id}" do
       click_button("Adopt This Pet")
     end
-    save_and_open_page
+
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
     expect(page).to_not have_content(pet_2.sex)
+  end
+end
+
+describe 'submit an application' do
+  describe 'with one+ pets I see submit section to submit application' do
+    it 'has input field for description and button to sumbit application' do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         shelter_id: shelter_1.id)
+      application = Application.create!(status: "In Progress",
+                                        user_id: user.id)
+
+      visit "/applications/#{application.id}"
+      fill_in :pet_name, with: "Skye"
+      click_button("Submit")
+      within "#pet-#{pet_1.id}" do
+        click_button("Adopt This Pet")
+      end
+
+      within ".submit-app" do
+        expect(page).to have_field("Description")
+        expect(page).to have_button("Submit Application")
+        click_button("Submit Application")
+      end
+      expect(current_path).to eq("/applications/#{application.id}")
+      expect(page).to have_content("Pending")
+      expect(page).to have_content(pet_1.name)
+      expect(page).to_not have_button("Adopt This Pet")
+      expect(page).to_not have_field(:pet_name)
+    end
   end
 end
