@@ -1,0 +1,10 @@
+<h1>Application</h1>
+<section class="user-info">
+  <%= @user.name %>
+  <%= @user.full_address %>
+</section>
+<section class="application">
+  <%= @application.description %>
+  <%= link_to "#{@pet.name}", "/pets/#{@pet.id}" %>
+  <%= @application.status %>
+</section>
