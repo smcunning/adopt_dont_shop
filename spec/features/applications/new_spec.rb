@@ -32,5 +32,24 @@ describe 'when i visit applications/new' do
         expect(page).to have_content("In Progress")
       end
     end
+
+    it 'needs a valid user' do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+
+      visit '/applications/new'
+      fill_in :user_name, with: "Kim Kardashian"
+      click_button("Submit")
+      expect(current_path).to eq '/applications/new'
+      expect(page).to have_content("Please enter an existing user name.")
+    end
   end
 end
