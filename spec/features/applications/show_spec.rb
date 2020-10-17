@@ -73,22 +73,22 @@ describe 'Add pet to application section' do
 
     visit "/applications/#{application.id}"
 
-    within '.add-pet' do
-      expect(page).to have_field("Search For Pet")
+    within '.find-pet' do
+      expect(page).to have_field(:pet_name)
     end
 
-    fill_in "Seach for Pet", with: "Skye"
+    fill_in :pet_name, with: "Skye"
     click_button("Submit")
     expect(current_path).to eq("/applications/#{application.id}")
-
+      save_and_open_page
     #need testing for order - that the search bar is on top of the pet results
 
     within '.pet-results'do
-      expect(page).to have_content(pet_1.image)
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
       expect(page).to have_content(pet_1.name)
       expect(page).to have_content(pet_1.approx_age)
       expect(page).to have_content(pet_1.sex)
-      expect(page).to have_content(pet_2.image)
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_2.image}')]")
       expect(page).to have_content(pet_2.name)
       expect(page).to have_content(pet_2.approx_age)
       expect(page).to have_content(pet_2.sex)
