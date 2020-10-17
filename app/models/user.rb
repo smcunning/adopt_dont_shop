@@ -29,6 +29,12 @@ class User < ApplicationRecord
       content: worst.content,
       image: worst.image
     }
+    else
+    {
+      title: "Nothing found.",
+      rating: "Nothing found.",
+      content: "Nothing found.",
+    }
     end
   end
 
