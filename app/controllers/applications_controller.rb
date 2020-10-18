@@ -2,7 +2,7 @@ class ApplicationsController < ApplicationController
 
   def show
     @application = Application.find(params[:id])
-    @pets = Pet.where(name: params[:pet_name])
+    @pets = Pet.where("name ILIKE :name", name: "%#{params[:pet_name]}%")
   end
 
   def new
@@ -14,7 +14,7 @@ class ApplicationsController < ApplicationController
       application = user.applications.create(app_params)
       application[:status] = "In Progress"
       application.save
-      redirect_to "/applications/#{app.id}"
+      redirect_to "/applications/#{application.id}"
     else
       flash[:notice] = "Please enter an existing user name."
       redirect_to "/applications/new"
