@@ -12,9 +12,9 @@
   <p>Pet Name: <%= pet.name %></p>
   <p>Age: <%= pet.approx_age %></p>
   <p>Sex: <%= pet.sex%></p><br/>
-  <% if @application.status != "Approved" && @application.status != "Denied"%>
-  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved"} %>
-  <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied"} %>
+  <% if pet.pet_application(@application.id).status.nil?%>
+  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: pet.id} %>
+  <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied", pet_id: pet.id} %>
   <% end %>
   </section>
   <% end %>

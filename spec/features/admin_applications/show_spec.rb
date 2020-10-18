@@ -138,3 +138,55 @@ describe "As a visitor" do
     end
   end
 end
+
+describe "As a visitor" do
+  describe "When I visit an admin application show page" do
+    it "I can approve all pets for an application" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         shelter_id: shelter_1.id)
+      application = Application.create!(description: "I will take great care of Skye",
+                                        status: "In Progress",
+                                        user_id: user.id)
+      pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
+                                               user_id: user.id,
+                                               application_id: application.id)
+      pet_2 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Henry',
+                         approx_age: 1,
+                         sex: 'Male',
+                         shelter_id: shelter_1.id)
+      pet_application_2 = PetApplication.create!(pet_id: pet_2.id,
+                                               user_id: user.id,
+                                               application_id: application.id)
+
+      visit "/admin/applications/#{application.id}"
+
+      within "#pet-#{pet_1.id}" do
+        click_button("Approve")
+        expect(page).to_not have_button("Approved")
+      end
+
+      expect(page).to have_content("In Progress")
+
+      within "#pet-#{pet_2.id}" do
+        click_button("Approve")
+        expect(page).to_not have_button("Approved")
+      end
+
+      expect(page).to have_content("Approved")
+    end
+  end
+end
