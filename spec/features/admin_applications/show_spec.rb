@@ -226,7 +226,6 @@ describe "As a visitor" do
 
       within "#pet-#{pet_1.id}" do
         click_button("Approve")
-        save_and_open_page
       end
       visit "/admin/applications/#{application_2.id}"
       expect(page).to have_content("This pet has already been adopted.")
