@@ -1,0 +1,12 @@
+<h1>Admin Applications</h1>
+
+<section class="pet-apps">
+  <% @application.pets.each do |pet| %>
+  <section id="pet-<%= pet.id %>">
+  <%= image_tag(pet.image) %><br/>
+  <p>Pet Name: <%= pet.name %></p>
+  <p>Age: <%= pet.approx_age %></p>
+  <p>Sex: <%= pet.sex%></p><br/>
+  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch %>
+  </section>
+  <% end %>
