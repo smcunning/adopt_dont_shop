@@ -13,7 +13,8 @@
   <p>Age: <%= pet.approx_age %></p>
   <p>Sex: <%= pet.sex%></p><br/>
   <% if @application.status != "Approved" %>
-  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch %>
+  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved"} %>
+  <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied"} %>
   <% end %>
   </section>
   <% end %>
