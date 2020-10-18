@@ -60,8 +60,12 @@ describe "As a visitor" do
 
       within "#pet-#{pet_1.id}" do
         click_button("Approve")
-        expect(page).to have_content("Approved")
+        save_and_open_page
         expect(page).to_not have_button("Approve")
+      end
+
+      within ".app-info" do
+        expect(page).to have_content("Approved")
       end
     end
   end
