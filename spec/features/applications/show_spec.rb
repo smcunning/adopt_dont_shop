@@ -213,7 +213,7 @@ describe 'incomplete applications for submitting' do
     within ".submit-app" do
       click_button("Submit Application")
     end
-    save_and_open_page
+  
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("In Progress")
     expect(page).to have_content("You must enter a description.")
