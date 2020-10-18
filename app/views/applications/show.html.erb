@@ -1,12 +1,44 @@
 <h1>Application</h1>
 <section class="user-info">
-  <%= @application.user.name %>
+  <h3><%= @application.user.name %></h3><br/>
   <%= @application.user.full_address %>
 </section>
+<br>
 <section class="application">
-  <%= @application.description %>
+  <%= @application.description %><br/>
   <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
-  <% end %>
-  <%= @application.status %>
+  <% end %><br/>
+  <p>Application Status: <%= @application.status %><br/></p>
 </section>
+
+<% if !@application.pets.empty? %>
+<section class="submit-app">
+  <%= form_tag "/applications/#{@application.id}", method: :patch do %>
+  <p><%= label_tag :why_are_you_a_good_pet_owner %>?</p>
+  <%= text_field_tag :description %><br>
+  <%= submit_tag "Submit Application" %>
+  <% end %>
+</section>
+<% end %>
+
+<% if @application.status == "In Progress" %>
+<section class="find-pet">
+  <%= form_tag "/applications/#{@application.id}", method: :get do %>
+  <%= label_tag :pet_name %>
+  <%= search_field_tag :pet_name, "Find Pet" %>
+  <%= submit_tag "Submit" %>
+  <% end %>
+</section><br/>
+<section class="pet-results">
+  <% @pets.each do |pet| %>
+  <section id="pet-<%= pet.id %>">
+  <%= image_tag(pet.image) %><br/>
+  <p>Pet Name: <%= pet.name %></p>
+  <p>Age: <%= pet.approx_age %></p>
+  <p>Sex: <%= pet.sex%></p><br/>
+  <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :patch, params: {pet: pet} %>
+  </section>
+  <% end %>
+</section>
+<% end %>
