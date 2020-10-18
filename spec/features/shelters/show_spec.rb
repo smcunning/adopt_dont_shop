@@ -247,3 +247,40 @@ describe "As a visitor" do
     end
   end
 end
+
+describe "As a visitor" do
+  describe "If a shelter has approved applications for any of their pets" do
+    it "The shelter cannot be deleted" do
+      shelter_1 = Shelter.create(name: 'Happy Home',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      pet_1 = Pet.create!(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         description: 'Shy and loveable!',
+                         adoptable: true,
+                         shelter_id: shelter_1.id)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      application_1 = Application.create!(description: "I will take great care of Skye",
+                                        status: "Pending",
+                                        user_id: user.id)
+      pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
+                                               user_id: user.id,
+                                               application_id: application_1.id)
+
+      visit "/shelters/#{shelter_1.id}"
+
+      click_link("Delete Shelter")
+
+      expect(page).to have_content("Shelters with pending applications CANNOT be deleted!")
+      expect(page).to have_content("#{shelter_1.name}")
+    end
+  end
+end
