@@ -190,3 +190,46 @@ describe "As a visitor" do
     end
   end
 end
+
+describe "As a visitor" do
+  describe "When pet is approved with pending application" do
+    it "The page omits the reject or approve button" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         shelter_id: shelter_1.id)
+      application_1 = Application.create!(description: "I will take great care of Skye",
+                                        status: "Approved",
+                                        user_id: user.id)
+      application_2 = Application.create!(description: "I will take great care of Skye",
+                                        status: "Pending",
+                                        user_id: user.id)
+      pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
+                                                 user_id: user.id,
+                                                 application_id: application_1.id,
+                                                 status: "Approved")
+      pet_application_2 = PetApplication.create!(pet_id: pet_1.id,
+                                                 user_id: user.id,
+                                                 application_id: application_2.id)
+
+      visit "/admin/applications/#{application_2.id}"
+
+      within("#pet-#{pet_1.id}") do
+        expect(page).to_not have_button("Approve")
+        expect(page).to_not have_button("Deny")
+        expect(page).to have_content("This pet has already been approved.")
+      end
+    end
+  end
+end
