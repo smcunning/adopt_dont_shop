@@ -8,6 +8,15 @@
 
 <%= link_to "Add a Review", "/shelters/#{@shelter.id}/reviews/new" %>
 
+<section class="shelter-stats">
+<h3>Shelter statistics:</h3>
+<ul>
+  <li>Number of pets: <%= @shelter.pets_count %></li>
+  <li>Average rating: <%= @shelter.average_rating %></li>
+  <li>Number of applications: <%= @shelter.application_count %></li>
+</ul>
+</section>
+
 <% @shelter.reviews.each do |review| %>
 
 <section>
