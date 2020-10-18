@@ -163,7 +163,7 @@ describe "As a visitor" do
       pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
                                                user_id: user.id,
                                                application_id: application.id)
-      pet_2 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+      pet_2 = Pet.create(image: 'https://i.ibb.co/VjrXKY5/awww.jpg',
                          name: 'Henry',
                          approx_age: 1,
                          sex: 'Male',
@@ -210,26 +210,28 @@ describe "As a visitor" do
                          sex: 'Female',
                          shelter_id: shelter_1.id)
       application_1 = Application.create!(description: "I will take great care of Skye",
-                                        status: "Approved",
+                                        status: "In Progress",
                                         user_id: user.id)
-      application_2 = Application.create!(description: "I will take great care of Skye",
-                                        status: "Pending",
+      application_2 = Application.create!(description: "I love kittens!",
+                                        status: "In Progress",
                                         user_id: user.id)
       pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
-                                                 user_id: user.id,
-                                                 application_id: application_1.id,
-                                                 status: "Approved")
+                                               user_id: user.id,
+                                               application_id: application_1.id)
       pet_application_2 = PetApplication.create!(pet_id: pet_1.id,
-                                                 user_id: user.id,
-                                                 application_id: application_2.id)
+                                               user_id: user.id,
+                                               application_id: application_2.id)
 
-      visit "/admin/applications/#{application_2.id}"
+      visit "/admin/applications/#{application_1.id}"
 
-      within("#pet-#{pet_1.id}") do
-        expect(page).to_not have_button("Approve")
-        expect(page).to_not have_button("Deny")
-        expect(page).to have_content("This pet has already been approved.")
+      within "#pet-#{pet_1.id}" do
+        click_button("Approve")
+        save_and_open_page
       end
+      visit "/admin/applications/#{application_2.id}"
+      expect(page).to have_content("This pet has already been adopted.")
+      expect(page).to_not have_button("Approve")
+      expect(page).to_not have_button("Deny")
     end
   end
 end

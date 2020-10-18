@@ -10,6 +10,10 @@ class AdminApplicationsController < ApplicationController
     application = Application.find(params[:id])
     if application.pet_applications.all?{|pet_application| pet_application.status == "Approved"}
       application[:status] = "Approved"
+      application.pets.each do |pet|
+         pet.adoptable = false
+         pet.save
+       end
       application.save
     elsif application.pet_applications.any?{|pet_application| pet_application.status == "Denied"}
       application[:status] = "Denied"
