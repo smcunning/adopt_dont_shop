@@ -187,55 +187,63 @@ describe "As a visitor" do
   describe "When I visit a shelter's show page" do
     it "I see count of pets at that shelter, average shelter review rating,
     and number of applications on file for that shelter" do
-    shelter_1 = Shelter.create(name: 'Happy Home',
-                               address: '1234 Happy Lane',
-                               city: 'Hopscotch Town',
-                               state: 'Colorado',
-                               zip: 12345)
-    user = User.create!(name: "Betty",
-                        address: "123 Main st",
-                        city: "Denver",
-                        state: "CO",
-                        zip: 80111)
-    review_1 = Review.create!(title: 'Tubular!',
-                              rating: 5,
-                              content: 'My new pet is the best!',
-                              image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
-                              user_id: "#{user.id}",
-                              shelter_id: "#{shelter_1.id}")
-    review_2 = Review.create!(title: 'Pleasant place',
-                              rating: 5,
-                              content: 'The staff was very friendly.',
-                              image: '',
-                              user_id: "#{user.id}",
-                              shelter_id: "#{shelter_1.id}")
-    pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
-                       name: 'Skye',
-                       approx_age: 3,
-                       sex: 'Female',
-                       description: 'Shy and loveable!',
-                       adoptable: true,
-                       shelter_id: shelter_1.id)
-    pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
-                      name: 'Gigi',
-                      approx_age: 4,
-                      sex: 'Female',
-                      description: 'Talkative and playful!',
-                      adoptable: true)
-    application_1 = Application.create!(description: "I will take great care of Skye",
-                                      status: "In Progress",
-                                      user_id: user.id)
-    application_2 = Application.create!(description: "I've taken care of dogs my whole life.",
-                                      status: "In Progress",
-                                      user_id: user.id)
-    pet_application = PetApplication.create!(pet_id: pet_1.id,
-                                             user_id: user.id,
-                                             application_id: application_1.id)
-    visit "/shelters/#{shelter_1.id}"
+      shelter_1 = Shelter.create(name: 'Happy Home',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      review_1 = Review.create!(title: 'Tubular!',
+                                rating: 5,
+                                content: 'My new pet is the best!',
+                                image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                                user_id: "#{user.id}",
+                                shelter_id: "#{shelter_1.id}")
+      review_2 = Review.create!(title: 'Pleasant place',
+                                rating: 5,
+                                content: 'The staff was very friendly.',
+                                image: '',
+                                user_id: "#{user.id}",
+                                shelter_id: "#{shelter_1.id}")
+      pet_1 = Pet.create!(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         description: 'Shy and loveable!',
+                         adoptable: true,
+                         shelter_id: shelter_1.id)
+      pet_2 = Pet.create!(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
+                        name: 'Gigi',
+                        approx_age: 4,
+                        sex: 'Female',
+                        description: 'Talkative and playful!',
+                        adoptable: true,
+                        shelter_id: shelter_1.id)
+      application_1 = Application.create!(description: "I will take great care of Skye",
+                                        status: "In Progress",
+                                        user_id: user.id)
+      application_2 = Application.create!(description: "I've taken care of dogs my whole life.",
+                                        status: "In Progress",
+                                        user_id: user.id)
+      pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
+                                               user_id: user.id,
+                                               application_id: application_1.id)
 
-    expect(page).to have_content(shelter_1.application_count)
-    expect(page).to have_content(shelter_1.pets_count)
-    expect(page).to have_content(shelter_1.average_rating)
+      pet_application_2 = PetApplication.create!(pet_id: pet_2.id,
+                                               user_id: user.id,
+                                               application_id: application_2.id)
+
+      visit "/shelters/#{shelter_1.id}"
+
+      within(".shelter-stats") do
+        expect(page).to have_content(shelter_1.pets_count)
+        expect(page).to have_content(shelter_1.average_rating)
+        expect(page).to have_content(shelter_1.application_count)
+      end
     end
   end
 end
