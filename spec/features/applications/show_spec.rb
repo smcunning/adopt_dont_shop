@@ -134,7 +134,6 @@ describe 'Add pet to application section' do
 
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content(pet_1.name)
-    expect(page).to_not have_content(pet_2.sex)
   end
 end
 
@@ -213,9 +212,93 @@ describe 'incomplete applications for submitting' do
     within ".submit-app" do
       click_button("Submit Application")
     end
-    save_and_open_page
+
     expect(current_path).to eq("/applications/#{application.id}")
     expect(page).to have_content("In Progress")
     expect(page).to have_content("You must enter a description.")
+  end
+end
+
+describe 'partial matches for pet names' do
+  it 'has all pets return in searches who partially match the search' do
+    shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                       name: 'Skye',
+                       approx_age: 3,
+                       sex: 'Female',
+                       shelter_id: shelter_1.id)
+   pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
+                      name: 'Sky',
+                      approx_age: 1,
+                      sex: 'Male',
+                      shelter_id: shelter_1.id)
+    application = Application.create!(status: "In Progress",
+                                      user_id: user.id)
+
+    visit "/applications/#{application.id}"
+    fill_in :pet_name, with: "Sky"
+    click_button("Submit")
+
+    within '.pet-results'do
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_1.approx_age)
+      expect(page).to have_content(pet_1.sex)
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_2.image}')]")
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_2.approx_age)
+      expect(page).to have_content(pet_2.sex)
+    end
+  end
+end
+
+describe 'partial matches for pet names' do
+  it 'has all pets return in searches in any character case' do
+    shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                       name: 'Skye',
+                       approx_age: 3,
+                       sex: 'Female',
+                       shelter_id: shelter_1.id)
+   pet_2 = Pet.create(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
+                      name: 'Sky',
+                      approx_age: 1,
+                      sex: 'Male',
+                      shelter_id: shelter_1.id)
+    application = Application.create!(status: "In Progress",
+                                      user_id: user.id)
+
+    visit "/applications/#{application.id}"
+    fill_in :pet_name, with: "skY"
+    click_button("Submit")
+
+    within '.pet-results'do
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
+      expect(page).to have_content(pet_1.name)
+      expect(page).to have_content(pet_1.approx_age)
+      expect(page).to have_content(pet_1.sex)
+      expect(page).to have_xpath("//img[contains(@src,'#{pet_2.image}')]")
+      expect(page).to have_content(pet_2.name)
+      expect(page).to have_content(pet_2.approx_age)
+      expect(page).to have_content(pet_2.sex)
+    end
   end
 end
