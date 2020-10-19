@@ -131,7 +131,6 @@ describe "As a visitor" do
         click_button("Deny")
         expect(page).to_not have_button("Deny")
       end
-
       within ".app-info" do
         expect(page).to have_content("Denied")
       end
