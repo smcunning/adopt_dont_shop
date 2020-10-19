@@ -10,4 +10,11 @@ class Application < ApplicationRecord
   def any_pet_apps_denied?
     self.pet_applications.any?{|pet_application| pet_application.status == "Denied"}
   end
+
+  def update_pet_adoptability
+    self.pets.each do |pet|
+     pet.adoptable = false
+     pet.save
+    end
+  end
 end
