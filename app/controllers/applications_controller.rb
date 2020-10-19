@@ -33,6 +33,7 @@ class ApplicationsController < ApplicationController
     redirect_to "/applications/#{application.id}"
   end
 
+  private
   def app_params
     params.permit(:status, :description)
   end
