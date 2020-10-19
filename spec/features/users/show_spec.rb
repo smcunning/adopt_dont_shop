@@ -163,7 +163,7 @@ describe "As a visitor" do
       visit "/users/#{user_1.id}"
 
       within ".average" do
-        expect(page).to have_content(user_1.average_review)
+        expect(page).to have_content(user_1.average_review.round(2))
       end
     end
   end

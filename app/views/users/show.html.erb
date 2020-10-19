@@ -5,7 +5,7 @@
 <h2>Highlight Reviews</h2>
 <section class="average">
   <h3><%= @user.name %>'s Average Rating:</h3>
-  <%= @user.average_review %>
+  <%= @user.average_review.round(2) %>
 </section>
 <br>
 <br>
