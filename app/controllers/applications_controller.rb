@@ -5,9 +5,6 @@ class ApplicationsController < ApplicationController
     @pets = Pet.where("name ILIKE :name", name: "%#{params[:pet_name]}%")
   end
 
-  def new
-  end
-
   def create
     user = User.find_by(name: params[:user_name])
     if user

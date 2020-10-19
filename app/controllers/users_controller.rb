@@ -8,9 +8,6 @@ class UsersController < ApplicationController
     @average_review = @user.average_review
   end
 
-  def new
-  end
-
   def create
     user = User.new({
       name: params[:name],
