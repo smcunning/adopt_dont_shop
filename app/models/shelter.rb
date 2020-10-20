@@ -4,16 +4,22 @@ class Shelter < ApplicationRecord
   validates_presence_of :name, :address, :city, :state, :zip
 
   def pets_count
-   self.pets.count
+   pets.count
  end
 
  def average_rating
-   (self.reviews.sum {|review| review.rating}).to_f / self.reviews.count
+   (reviews.sum {|review| review.rating}).to_f / self.reviews.count
  end
 
  def application_count
-   self.pets.sum do |pet|
+   pets.sum do |pet|
      pet.applications.count
    end
+ end
+
+ def any_pets_pending?
+   pets.any? do |pet|
+    pet.apps_pending?
+  end
  end
 end
