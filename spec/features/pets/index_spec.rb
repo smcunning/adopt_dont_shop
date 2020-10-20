@@ -143,3 +143,66 @@ describe 'as a visitor' do
     end
   end
 end
+
+describe "As a visior" do
+  describe "if a pet has an approved application" do
+    it "Cannot be deleted" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         shelter_id: shelter_1.id)
+      application = Application.create!(description: "I will take great care of Skye",
+                                        status: "Approved",
+                                        user_id: user.id)
+      pet_application = PetApplication.create!(pet_id: pet_1.id,
+                                               user_id: user.id,
+                                               application_id: application.id)
+
+      visit "/pets/"
+
+      click_link("Delete #{pet_1.name}")
+      expect(page).to have_content("Cannot delete pet with an approved application.")
+    end
+
+    it "CAN be deleted" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         shelter_id: shelter_1.id)
+      application = Application.create!(description: "I will take great care of Skye",
+                                        status: "In Progress",
+                                        user_id: user.id)
+      pet_application = PetApplication.create!(pet_id: pet_1.id,
+                                               user_id: user.id,
+                                               application_id: application.id)
+
+      visit "/pets/"
+
+      click_link("Delete #{pet_1.name}")
+      expect(current_path).to eq("/pets")
+      expect(page).to_not have_content("#{pet_1.name}")
+    end
+  end
+end
