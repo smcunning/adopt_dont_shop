@@ -354,3 +354,46 @@ describe "As a visitor" do
     end
   end
 end
+
+describe "As a visitor" do
+  describe "When I delete a shelter" do
+    it "All reviews associated are also deleted" do
+      shelter_1 = Shelter.create(name: 'Happy Home',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      shelter_2 = Shelter.create(name: 'Blissful Barks',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+      review_1 = Review.create!(title: 'Tubular!',
+                                rating: 5,
+                                content: 'My new pet is the best!',
+                                image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                                user_id: "#{user.id}",
+                                shelter_id: "#{shelter_1.id}")
+      review_2 = Review.create!(title: 'Pleasant place',
+                                rating: 5,
+                                content: 'The staff was very friendly.',
+                                image: '',
+                                user_id: "#{user.id}",
+                                shelter_id: "#{shelter_2.id}")
+
+      visit "/shelters/#{shelter_1.id}"
+
+      click_link("Delete Shelter")
+
+      visit "/users/#{user.id}"
+
+      expect(page).to_not have_content("#{review_1.title}")
+      expect(page).to have_content("#{review_2.title}")
+    end
+  end
+end
