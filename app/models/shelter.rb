@@ -17,9 +17,9 @@ class Shelter < ApplicationRecord
    end
  end
 
- def any_pets_pending?
+ def any_pets_approved?
    pets.any? do |pet|
-    pet.apps_pending?
+    pet.apps_approved?
   end
  end
 end

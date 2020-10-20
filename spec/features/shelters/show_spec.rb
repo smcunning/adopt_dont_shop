@@ -269,7 +269,7 @@ describe "As a visitor" do
                          adoptable: false,
                          shelter_id: shelter_1.id)
       application_1 = Application.create!(description: "I will take great care of Skye",
-                                        status: "Pending",
+                                        status: "Approved",
                                         user_id: user.id)
       pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
                                                user_id: user.id,
@@ -278,7 +278,7 @@ describe "As a visitor" do
       visit "/shelters/#{shelter_1.id}"
 
       click_link("Delete Shelter")
-      expect(page).to have_content("Cannot delete shelter with Pending Pet Applications")
+      expect(page).to have_content("Cannot delete shelter with Approved Pet Applications")
     end
 
     it "I CAN delete shelters that don't have app status pending" do
@@ -300,7 +300,7 @@ describe "As a visitor" do
                          adoptable: false,
                          shelter_id: shelter_1.id)
       application_1 = Application.create!(description: "I will take great care of Skye",
-                                        status: "Approved",
+                                        status: "Denied",
                                         user_id: user.id)
       pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
                                                user_id: user.id,
