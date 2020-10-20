@@ -17,8 +17,14 @@ class ShelterPetsController < ApplicationController
 
   def destroy
     shelter = Shelter.find(params[:id])
-    Pet.destroy(params[:petid])
-    redirect_to "/pets"
+    pet = Pet.find(params[:petid])
+    if pet.apps_approved?
+      flash[:notice] = "Cannot delete pet with an approved application."
+      redirect_to "/shelters/#{shelter.id}/pets"
+    else
+      Pet.destroy(params[:petid])
+      redirect_to "/pets"
+    end
   end
 
   private
