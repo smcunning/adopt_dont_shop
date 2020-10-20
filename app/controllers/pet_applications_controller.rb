@@ -1,8 +1,7 @@
 class PetApplicationsController < ApplicationController
 
   def index
-    require "pry"; binding.pry
-    @applications = Application.all
+    @pet = Pet.find(params[:id])
   end
 
   private

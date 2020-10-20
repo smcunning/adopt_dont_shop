@@ -1,5 +1,13 @@
 <h1>Pet Applications</h1>
-<%= require "pry"; binding.pry %>
-<% @pet.each do |user| %>
-<%= link_to "#{user.name}", "/applications/#{application.id}" %>
+<% if @pet.applications.empty? == false %>
+<% @pet.applications.each do |app| %>
+
+<section id="applicant-<%= app.user.id %>">
+
+<%= link_to "#{app.user.name}", "/admin/applications/#{app.id}" %>
+</section>
+<% end %>
+
+<% else %>
+<p>There are no applications for this pet.</p>
 <% end %>

@@ -89,7 +89,7 @@ describe "As a visitor" do
 
       expect(page).to have_link("All Applications")
       click_link("All Applications")
-      expect(current_path).to eq("/pet-applications")
+      expect(current_path).to eq("/pet-applications/#{pet_1.id}")
     end
   end
 end
