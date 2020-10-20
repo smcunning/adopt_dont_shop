@@ -8,12 +8,6 @@ class Pet < ApplicationRecord
     PetApplication.find_by(pet_id: id, application_id: application_id)
   end
 
-  def apps_pending?
-    applications.any? do |app|
-      app.status == "Pending"
-    end
-  end
-
   def apps_approved?
     applications.any? do |app|
       app.status == "Approved"

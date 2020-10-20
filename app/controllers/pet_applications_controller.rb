@@ -4,8 +4,4 @@ class PetApplicationsController < ApplicationController
     @pet = Pet.find(params[:id])
   end
 
-  private
-  def pet_params
-    params.permit(:pet_id)
-  end
 end
