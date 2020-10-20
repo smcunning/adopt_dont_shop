@@ -21,10 +21,6 @@ class ShelterReviewsController < ApplicationController
     end
   end
 
-  def review_params
-    params.permit(:title, :rating, :content, :image)
-  end
-
   def edit
     @review = Review.find(params[:review_id])
   end
@@ -43,8 +39,8 @@ class ShelterReviewsController < ApplicationController
       flash[:notice] = "User does not exist, please enter valid user"
       redirect_to "/shelters/#{shelter.id}/reviews/#{review.id}/edit"
     elsif review.valid?
-        review.save
-        redirect_to "/shelters/#{review.shelter.id}"
+      review.save
+      redirect_to "/shelters/#{review.shelter.id}"
     else
       flash[:notice] = "Title, Rating, and Content cannot be blank."
       redirect_to "/shelters/#{shelter.id}/reviews/#{review.id}/edit"
@@ -56,5 +52,10 @@ class ShelterReviewsController < ApplicationController
     shelter = review.shelter.id
     review.destroy
     redirect_to "/shelters/#{shelter}"
+  end
+
+  private
+  def review_params
+    params.permit(:title, :rating, :content, :image)
   end
 end

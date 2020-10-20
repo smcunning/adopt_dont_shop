@@ -131,7 +131,6 @@ describe "As a visitor" do
         click_button("Deny")
         expect(page).to_not have_button("Deny")
       end
-
       within ".app-info" do
         expect(page).to have_content("Denied")
       end
@@ -228,6 +227,7 @@ describe "As a visitor" do
         click_button("Approve")
       end
       visit "/admin/applications/#{application_2.id}"
+
       expect(page).to have_content("This pet has already been adopted.")
       expect(page).to_not have_button("Approve")
       expect(page).to_not have_button("Deny")

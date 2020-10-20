@@ -68,3 +68,28 @@ describe 'As a visitor' do
     end
   end
 end
+
+describe "As a visitor" do
+  describe "When I visit a pet's show page" do
+    it "Has a link to view all apps for this pet" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      pet_1 = Pet.create(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                         name: 'Skye',
+                         approx_age: 3,
+                         sex: 'Female',
+                         description: 'Shy and loveable!',
+                         adoptable: true,
+                         shelter_id: shelter_1.id)
+
+      visit "/pets/#{pet_1.id}"
+
+      expect(page).to have_link("All Applications")
+      click_link("All Applications")
+      expect(current_path).to eq("/pet-applications/#{pet_1.id}")
+    end
+  end
+end

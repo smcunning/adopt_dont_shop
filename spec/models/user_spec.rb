@@ -38,7 +38,7 @@ describe User, type: :model do
 
       average = ((review_1.rating + review_2.rating + review_3.rating) / 3.to_f).round(2)
 
-      expect(user_1.average_review).to eq(average)
+      expect(user_1.average_review.round(2)).to eq(average)
     end
 
      it "best_review" do

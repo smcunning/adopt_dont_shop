@@ -14,7 +14,7 @@
   <p>Sex: <%= pet.sex%></p><br/>
   <% if !pet.adoptable %>
   <p>This pet has already been adopted.</p>
-  <% elsif pet.pet_application(@application.id).status.nil?%>
+  <% elsif pet.find_pet_application(@application.id).status.nil?%>
   <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: pet.id} %>
   <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied", pet_id: pet.id} %>
   <% end %>
