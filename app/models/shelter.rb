@@ -13,7 +13,7 @@ class Shelter < ApplicationRecord
 
  def application_count
    self.pets.sum do |pet|
-     pet.pet_applications.count
+     pet.applications.count
    end
  end
 end
