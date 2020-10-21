@@ -15,6 +15,6 @@ class Application < ApplicationRecord
     self.pets.each do |pet|
      pet.adoptable = false
      pet.save
-    end
+   end
   end
 end
