@@ -1,35 +1,42 @@
-<h1><%= @user.name %></h1>
-<p><%= @user.address %><br/>
-<%= @user.city %>, <%= @user.state %> <%= @user.zip %></p>
-
-<h2>Highlight Reviews</h2>
-<section class="average">
-  <h3><%= @user.name %>'s Average Rating:</h3>
-  <%= @user.average_review.round(2) %>
-</section>
-<br>
-<br>
-<section class="best">
-  <h3><%= @user.name %>'s Best Rated Shelter</h3>
-  <%= image_tag @user.best_review[:image] if @user.best_review[:image]%>
-  <p><%= @user.best_review[:title] %></p>
-  <p>Rating: <%= @user.best_review[:rating] %></p>
-  <p>Review: <%= @user.best_review[:content] %></p>
-</section>
-<br/>
-<br/>
-<section class="worst">
-  <h3><%= @user.name %>'s Worst Rated Shelter</h3>
-  <%= image_tag @user.worst_review[:image] if @user.worst_review[:image]%>
-  <p><%= @user.worst_review[:title] %></p>
-  <p>Rating: <%= @user.worst_review[:rating] %></p>
-  <p>Review: <%= @user.worst_review[:content] %></p>
+<section class="user-info">
+  <h1><%= @user.name %>'s Details</h1>
+  <h3><%= @user.address %></h3>
+  <h4><%= @user.city %>, <%= @user.state %> <%= @user.zip %></h4>
 </section>
 
-<h1><%= @user.name %>'s Reviews:</h1>
-<% @reviews.each do |review| %>
-<p> <%= review.title %><br>
-  Rating: <%= review.rating %><br>
-  <%= review.content %><br>
-</p>
-<% end %>
+<section class="highlight-reviews">
+  <h2>Highlight Reviews</h2>
+
+  <section class="average">
+    <h4><%= @user.name %>'s Overall Average Review Rating: <%= @user.average_review.round(2) %></h4>
+  </section>
+
+<br>
+
+  <section class="best">
+    <h3>Best Rated Review</h3>
+    <%= image_tag @user.best_review[:image] if @user.best_review[:image] %>
+    <h4><%= @user.best_review[:title] %></h4>
+    <p>Rating: <%= @user.best_review[:rating] %></p>
+    <p>Review: <%= @user.best_review[:content] %></p>
+  </section>
+
+  <br>
+
+  <section class="worst">
+    <h3>Worst Rated Review</h3>
+    <%= image_tag @user.worst_review[:image] if @user.best_review[:image] %>
+    <h4><%= @user.worst_review[:title] %></h4>
+    <p>Rating: <%= @user.worst_review[:rating] %></p>
+    <p>Review: <%= @user.worst_review[:content] %></p>
+  </section>
+</section>
+
+<section class="all-reviews">
+  <h2>All Reviews</h2>
+  <% @reviews.each do |review| %>
+    <h4><%= review.title %></h4>
+    <p>Rating: <%= review.rating %></p>
+    <p><%= review.content %></p>
+  <% end %>
+</section>
