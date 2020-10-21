@@ -10,7 +10,11 @@
 <h3>Shelter statistics:</h3>
 <ul>
   <li>Number of pets: <%= @shelter.pets_count %></li>
-  <li>Average rating: <%= @shelter.average_rating %></li>
+  <% if @shelter.average_rating.nan? %>
+      <li>Average rating: Not yet rated</li>
+  <% else %>
+      <li>Average rating: <%= @shelter.average_rating %></li>
+  <% end %>
   <li>Number of applications: <%= @shelter.application_count %></li>
 </ul>
 </section>
