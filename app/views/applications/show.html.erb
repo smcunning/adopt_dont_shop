@@ -1,46 +1,56 @@
 <h1>Application</h1>
 <section class="user-info">
-  <h3><%= @application.user.name %></h3><br/>
-  <%= @application.user.full_address %>
-</section>
-<br>
-<section class="application">
-  Application description: <%=@application.description %><br/>
-  Pets for this application: <% @application.pets.each do |pet| %>
-  <%= link_to pet.name, "/pets/#{pet.id}" %>
-  <% end %><br/>
-  <p>Application Status: <%= @application.status %><br/></p>
+  <h2>Applicant Details</h2>
+  <h3><%= @application.user.name %></h3>
+  <h4><%= @application.user.full_address %></h4>
 </section>
 
-<% if @application.status != "Pending" %>
-<section class="submit-app">
-  <%= form_tag "/applications/#{@application.id}", method: :patch do %>
-  <p><%= label_tag :why_are_you_a_good_pet_owner %>?</p>
-  <%= text_field_tag :description %><br>
-  <%= submit_tag "Submit Application" %>
-  <% end %>
+<br>
+
+<section class="application">
+  <h2>Application Details</h2>
+  <h4>Description: <%= @application.description %></h4>
+  <h4>Pets to Adopt:</h4>
+  <% @application.pets.each do |pet| %>
+    <p><%= link_to pet.name, "/pets/#{pet.id}" %></p>
+  <% end %><br/>
+  <h4>Application Status: <%= @application.status %><br/></h4>
 </section>
+
+<% if !@application.pets.empty? && @application.status == "In Progress" %>
+  <section class="submit-app">
+    <%= form_tag "/applications/#{@application.id}", method: :patch do %>
+      <h4><%= label_tag :why_are_you_a_good_pet_owner %>?</h4>
+      <%= text_field_tag :description %><br>
+      <%= submit_tag "Submit Application" %>
+    <% end %>
+  </section>
 <% end %>
 <br>
 <br>
 <% if @application.status == "In Progress" %>
-<section class="find-pet">
-  <%= form_tag "/applications/#{@application.id}", method: :get do %>
-  <h3>Add a Pet to this application</h3><br>
-  <%= label_tag :search_by_pet_name %>
-  <%= search_field_tag :pet_name %>
-  <%= submit_tag "Submit" %>
-  <% end %>
-</section><br/>
-<section class="pet-results">
-  <% @pets.each do |pet| %>
-  <section id="pet-<%= pet.id %>">
-  <%= image_tag(pet.image) %><br/>
-  <p>Pet Name: <%= pet.name %></p>
-  <p>Age: <%= pet.approx_age %></p>
-  <p>Sex: <%= pet.sex%></p><br/>
-  <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :patch, params: {pet: pet} %>
+  <section class="find-pet">
+    <%= form_tag "/applications/#{@application.id}", method: :get do %>
+      <%= label_tag :seach_by_pet_name %>
+      <%= search_field_tag :pet_name %>
+      <%= submit_tag "Submit" %>
+    <% end %>
   </section>
-  <% end %>
-</section>
+
+  <br>
+
+  <section class="pet-results">
+    <h2>Add Pets to Your Applicaton</h2>
+    <% @pets.each do |pet| %>
+      <section id="pet-<%= pet.id %>">
+        <%= image_tag(pet.image) %>
+        <br>
+        <p>Pet Name: <%= pet.name %></p>
+        <p>Age: <%= pet.approx_age %></p>
+        <p>Sex: <%= pet.sex%></p>
+        <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :patch, params: {pet: pet} %>
+        <br>
+      </section>
+   <% end %>
+ </section>
 <% end %>

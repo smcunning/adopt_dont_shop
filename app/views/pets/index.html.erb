@@ -1,4 +1,5 @@
 <h2>Available Pets</h2>
+<%= link_to "Start an Application", "/applications/new" %>
 <% @pets.each do |pet| %>
   <%= image_tag(pet.image) %>
   <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>
@@ -9,4 +10,3 @@
   <%= link_to "Delete #{pet.name}", "/shelters/#{pet.shelter_id}/pets/#{pet.id}", method: :delete %><br/>
 <% end %>
 <br/>
-  <%= link_to "Start an Application", "/applications/new" %>
