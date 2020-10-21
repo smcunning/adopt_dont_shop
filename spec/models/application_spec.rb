@@ -134,7 +134,7 @@ describe Application, type: :model do
     expect(application_1.any_pet_apps_denied?).to eq(false)
   end
 
-  it "update_pet_adoptability" do
+  xit "update_pet_adoptability" do
     shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
                                address: '1234 Happy Lane',
                                city: 'Hopscotch Town',

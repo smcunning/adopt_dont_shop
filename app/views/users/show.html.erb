@@ -5,10 +5,10 @@
 <h2>Highlight Reviews</h2>
 <section class="average">
   <h3><%= @user.name %>'s Average Rating:</h3>
-  <% if @user.average_review.nan? %>
-  No reviews have been made
+  <% if @user.average_rating %>
+  <%= @user.average_rating.round(2) %>
   <% else %>
-  <%= @user.average_review.round(2) %>
+  No reviews have been made
   <% end %>
 </section>
 <br>

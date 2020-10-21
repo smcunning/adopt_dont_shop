@@ -4,4 +4,8 @@ class ApplicationRecord < ActiveRecord::Base
   def apps_approved?
     applications.exists?(status: "Approved")
   end
+
+  def average_rating
+    reviews.average(:rating)
+  end
 end
