@@ -158,8 +158,17 @@ describe Application, type: :model do
   #   application_1 = Application.create!(description: "I will take great care of Skye",
   #                                     status: "In Progress",
   #                                     user_id: user.id)
+  #   pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
+  #                                            user_id: user.id,
+  #                                            application_id: application_1.id,
+  #                                            status: "Approved")
+  #   pet_application_2 = PetApplication.create!(pet_id: pet_2.id,
+  #                                            user_id: user.id,
+  #                                            application_id: application_1.id,
+  #                                            status: "Approved")
   #
   #   application_1.update_pet_adoptability
+  #   application_1.save
   #   expect(pet_1.adoptable).to eq(false)
   #   expect(pet_2.adoptable).to eq(false)
   # end
