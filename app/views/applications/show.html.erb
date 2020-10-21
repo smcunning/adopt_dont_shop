@@ -5,8 +5,8 @@
 </section>
 <br>
 <section class="application">
-  <%= @application.description %><br/>
-  <% @application.pets.each do |pet| %>
+  Application description: <%=@application.description %><br/>
+  Pets for this application: <% @application.pets.each do |pet| %>
   <%= link_to pet.name, "/pets/#{pet.id}" %>
   <% end %><br/>
   <p>Application Status: <%= @application.status %><br/></p>
@@ -21,10 +21,12 @@
   <% end %>
 </section>
 <% end %>
-
+<br>
+<br>
 <% if @application.status == "In Progress" %>
 <section class="find-pet">
   <%= form_tag "/applications/#{@application.id}", method: :get do %>
+  <h3>Add a Pet to this application</h3><br>
   <%= label_tag :search_by_pet_name %>
   <%= search_field_tag :pet_name %>
   <%= submit_tag "Submit" %>
