@@ -15,8 +15,11 @@
   <h3>Our Statistics</h3>
   <ul>
     <li>Animals Currently Serving: <%= @shelter.pets_count %></li>
-    <li>Overall Rating: <%= @shelter.average_rating %></li>
-    <li>Number of Applications Received: <%= @shelter.application_count %></li>
+    <% if @shelter.average_rating %>
+      <li>Overall Rating: <%= @shelter.average_rating %></li>
+    <% else %>
+      <li>Number of Applications Received: <%= @shelter.application_count %></li>
+    <% end %>
   </ul>
 </section>
 
