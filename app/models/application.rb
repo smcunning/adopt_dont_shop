@@ -4,17 +4,17 @@ class Application < ApplicationRecord
   has_many :pets, through: :pet_applications
 
   def all_pet_apps_approved?
-    self.pet_applications.all?{|pet_application| pet_application.status == "Approved"}
+    pet_applications.all.count == pet_applications.where(status: "Approved").count
   end
 
   def any_pet_apps_denied?
-    self.pet_applications.any?{|pet_application| pet_application.status == "Denied"}
+    pet_applications.where(status: "Denied").any?
   end
 
   def update_pet_adoptability
-    self.pets.each do |pet|
+    pets.each do |pet|
      pet.adoptable = false
      pet.save
-    end
+   end
   end
 end

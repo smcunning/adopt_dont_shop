@@ -5,7 +5,11 @@
 <h2>Highlight Reviews</h2>
 <section class="average">
   <h3><%= @user.name %>'s Average Rating:</h3>
-  <%= @user.average_review.round(2) %>
+  <% if @user.average_rating %>
+  <%= @user.average_rating.round(2) %>
+  <% else %>
+  No reviews have been made
+  <% end %>
 </section>
 <br>
 <br>
@@ -28,8 +32,9 @@
 
 <h1><%= @user.name %>'s Reviews:</h1>
 <% @reviews.each do |review| %>
-<p> <%= review.title %><br>
-  Rating: <%= review.rating %><br>
-  <%= review.content %><br>
+<p>Review Title: <%= review.title %><br>
+  Rating: No reviews have been made
+   Rating: <%= review.rating %><br>
+  Rating Content<%= review.content %><br>
 </p>
 <% end %>
