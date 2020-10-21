@@ -5,20 +5,30 @@
   <h3>Application Status: <%= @application.status %></h3>
 </section>
 
+<section class="user-info">
+  <h2>Details for <%= @application.user.name %></h2>
+  <h3><%= @application.user.name %></h3>
+  <h4><%= @application.user.full_address %></h4>
+  <h4>Description: <%= @application.description %></h4>
+</section>
 <br>
 
 <section class="pet-apps">
   <% @application.pets.each do |pet| %>
     <section id="pet-<%= pet.id %>">
       <%= image_tag(pet.image) %><br/>
-      <p>Pet Name: <%= pet.name %></p>
+      <h4>Pet Name: <%= pet.name %></h4>
       <p>Age: <%= pet.approx_age %></p>
-      <p>Sex: <%= pet.sex%></p><br/>
-      <% if !pet.adoptable %>
-        <p>This pet has already been adopted.</p>
-      <% elsif pet.find_pet_application(@application.id).status.nil?%>
-        <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: pet.id} %>
-        <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied", pet_id: pet.id} %>
-      <% end %>
+      <p>Sex: <%= pet.sex %></p>
+        <% if pet.find_pet_application(@application.id).status == "Approved" %>
+          <p>Approved for Adoption</p>
+        <% elsif pet.find_pet_application(@application.id).status == "Denied" %>
+          <p>Denied for Adoption</p>
+        <% elsif !pet.adoptable %>
+          <p>This pet has already been adopted.</p>
+        <% else %>
+          <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: pet.id} %>
+          <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied", pet_id: pet.id} %>
+        <% end %>
       </section>
   <% end %>

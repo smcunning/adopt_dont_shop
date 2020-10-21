@@ -1,5 +1,6 @@
 <h2>Available Pets</h2>
 <%= link_to "Start an Application", "/applications/new" %>
+<br>
 <% @pets.each do |pet| %>
   <%= image_tag(pet.image) %>
   <h3><%= link_to "#{pet.name}", "/pets/#{pet.id}" %></h3>

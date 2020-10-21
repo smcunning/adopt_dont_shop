@@ -138,5 +138,15 @@ describe User, type: :model do
       expect(user_1.worst_review[:rating]).to eq("Nothing found.")
       expect(user_1.worst_review[:content]).to eq("Nothing found.")
     end
+
+    it "can display a user's full address" do
+      user_1 = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+
+      expect(user_1.full_address).to eq("123 Main st, Denver, CO 80111")
+    end
   end
 end
