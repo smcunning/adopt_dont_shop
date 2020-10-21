@@ -38,6 +38,11 @@ describe Shelter, type: :model do
                                city: 'Hopscotch Town',
                                state: 'Colorado',
                                zip: 12345)
+    shelter_2 = Shelter.create(name: 'Test lane',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
     user = User.create!(name: "Betty",
                         address: "123 Main st",
                         city: "Denver",
@@ -55,6 +60,12 @@ describe Shelter, type: :model do
                               image: '',
                               user_id: "#{user.id}",
                               shelter_id: "#{shelter_1.id}")
+    review_2 = Review.create!(title: 'Pleasant place',
+                              rating: 1,
+                              content: 'The staff was very friendly.',
+                              image: '',
+                              user_id: "#{user.id}",
+                              shelter_id: "#{shelter_2.id}")
 
     expect(shelter_1.average_rating).to eq(4)
   end
@@ -99,5 +110,51 @@ describe Shelter, type: :model do
                                              application_id: application_2.id)
 
     expect(shelter_1.application_count).to eq(2)
+  end
+
+  it 'any_pets_approved?' do
+    shelter_1 = Shelter.create(name: 'Happy Home',
+                               address: '1234 Happy Lane',
+                               city: 'Hopscotch Town',
+                               state: 'Colorado',
+                               zip: 12345)
+   shelter_2 = Shelter.create(name: 'Happy Home',
+                              address: '1234 Happy Lane',
+                              city: 'Hopscotch Town',
+                              state: 'Colorado',
+                              zip: 12345)
+    user = User.create!(name: "Betty",
+                        address: "123 Main st",
+                        city: "Denver",
+                        state: "CO",
+                        zip: 80111)
+    pet_1 = Pet.create!(image: 'https://i.ibb.co/JzcLkB6/pet-1.jpg',
+                       name: 'Skye',
+                       approx_age: 3,
+                       sex: 'Female',
+                       description: 'Shy and loveable!',
+                       adoptable: false,
+                       shelter_id: shelter_1.id)
+    pet_2 = Pet.create!(image: 'https://i.ibb.co/jJK9jWN/pet-2.jpg',
+                      name: 'Gigi',
+                      approx_age: 4,
+                      sex: 'Female',
+                      description: 'Talkative and playful!',
+                      adoptable: true,
+                      shelter_id: shelter_2.id)
+    application_1 = Application.create!(description: "I will take great care of Skye",
+                                      status: "Approved",
+                                      user_id: user.id)
+    application_2 = Application.create!(description: "I've taken care of dogs my whole life.",
+                                      status: "In Progress",
+                                      user_id: user.id)
+    pet_application_1 = PetApplication.create!(pet_id: pet_1.id,
+                                             user_id: user.id,
+                                             application_id: application_1.id)
+    pet_application_2 = PetApplication.create!(pet_id: pet_2.id,
+                                             user_id: user.id,
+                                             application_id: application_2.id)
+    expect(shelter_1.apps_approved?).to eq(true)
+    expect(shelter_2.apps_approved?).to eq(false)
   end
 end
