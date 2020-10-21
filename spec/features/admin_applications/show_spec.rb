@@ -27,7 +27,7 @@ describe "As a visitor" do
                                                application_id: application.id)
 
       visit "/admin/applications/#{application.id}"
-
+      save_and_open_page
       within "#pet-#{pet_1.id}" do
         expect(page).to have_button("Approve")
       end
