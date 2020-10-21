@@ -12,9 +12,9 @@ class Application < ApplicationRecord
   end
 
   def update_pet_adoptability
-    self.pets.each do |pet|
-     pet.adoptable = false
-     pet.save
+    pets.each do |pet|
+      pet.adoptable = false
+      pet.save
     end
   end
 end
