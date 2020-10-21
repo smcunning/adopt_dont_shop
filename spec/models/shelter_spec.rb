@@ -145,7 +145,7 @@ describe Shelter, type: :model do
                                              application_id: application_2.id)
 
 
-    expect(shelter_1.any_pets_approved?).to eq(true)
-    expect(shelter_2.any_pets_approved?).to eq(false)
+    expect(shelter_1.apps_approved?).to eq(true)
+    expect(shelter_2.apps_approved?).to eq(false)
   end
 end
