@@ -46,7 +46,7 @@
         <br>
         <p>Pet Name: <%= pet.name %></p>
         <p>Age: <%= pet.approx_age %></p>
-        <p>Sex: <%= pet.sex%></p><br/>
+        <p>Sex: <%= pet.sex%></p>
         <%= button_to "Adopt This Pet", "/applications/#{@application.id}", method: :patch, params: {pet: pet} %>
         <br>
       </section>
