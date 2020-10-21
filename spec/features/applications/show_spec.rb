@@ -289,7 +289,7 @@ describe 'partial matches for pet names' do
     visit "/applications/#{application.id}"
     fill_in :pet_name, with: "skY"
     click_button("Submit")
-
+    save_and_open_page
     within '.pet-results'do
       expect(page).to have_xpath("//img[contains(@src,'#{pet_1.image}')]")
       expect(page).to have_content(pet_1.name)
