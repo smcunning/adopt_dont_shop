@@ -27,7 +27,6 @@ describe "As a visitor" do
                                                application_id: application.id)
 
       visit "/admin/applications/#{application.id}"
-
       within "#pet-#{pet_1.id}" do
         expect(page).to have_button("Approve")
       end

@@ -118,5 +118,25 @@ describe User, type: :model do
 
        expect(user_1.worst_review).to eq(worst)
      end
+
+    it "no review content" do
+      shelter_1 = Shelter.create(name: 'Sunny Days Shelter',
+                                 address: '1234 Happy Lane',
+                                 city: 'Hopscotch Town',
+                                 state: 'Colorado',
+                                 zip: 12345)
+      user_1 = User.create!(name: "Betty",
+                          address: "123 Main st",
+                          city: "Denver",
+                          state: "CO",
+                          zip: 80111)
+
+      expect(user_1.best_review[:title]).to eq("Nothing found.")
+      expect(user_1.best_review[:rating]).to eq("Nothing found.")
+      expect(user_1.best_review[:content]).to eq("Nothing found.")
+      expect(user_1.worst_review[:title]).to eq("Nothing found.")
+      expect(user_1.worst_review[:rating]).to eq("Nothing found.")
+      expect(user_1.worst_review[:content]).to eq("Nothing found.")
+    end
   end
 end

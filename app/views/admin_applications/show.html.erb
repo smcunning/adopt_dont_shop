@@ -1,22 +1,24 @@
-<h1>Admin Applications</h1>
+<h1>Admin Application</h1>
 
 <section class="app-info">
-<h3>Application information</h3>
-<p>Application Status: <%= @application.status %></p>
+  <h2>Application Details</h2>
+  <h3>Application Status: <%= @application.status %></h3>
 </section>
+
+<br>
 
 <section class="pet-apps">
   <% @application.pets.each do |pet| %>
-  <section id="pet-<%= pet.id %>">
-  <%= image_tag(pet.image) %><br/>
-  <p>Pet Name: <%= pet.name %></p>
-  <p>Age: <%= pet.approx_age %></p>
-  <p>Sex: <%= pet.sex%></p><br/>
-  <% if !pet.adoptable %>
-  <p>This pet has already been adopted.</p>
-  <% elsif pet.find_pet_application(@application.id).status.nil?%>
-  <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: pet.id} %>
-  <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied", pet_id: pet.id} %>
-  <% end %>
-  </section>
+    <section id="pet-<%= pet.id %>">
+      <%= image_tag(pet.image) %><br/>
+      <p>Pet Name: <%= pet.name %></p>
+      <p>Age: <%= pet.approx_age %></p>
+      <p>Sex: <%= pet.sex%></p><br/>
+      <% if !pet.adoptable %>
+        <p>This pet has already been adopted.</p>
+      <% elsif pet.find_pet_application(@application.id).status.nil?%>
+        <%= button_to "Approve", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Approved", pet_id: pet.id} %>
+        <%= button_to "Deny", "/admin/applications/#{@application.id}", method: :patch, params: {status: "Denied", pet_id: pet.id} %>
+      <% end %>
+      </section>
   <% end %>

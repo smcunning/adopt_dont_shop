@@ -84,6 +84,7 @@ describe Pet, type: :model do
     pet_application = PetApplication.create!(pet_id: pet_1.id,
                                              user_id: user.id,
                                              application_id: application.id)
+                                             
     expect(pet_1.find_pet_application(application.id)).to eq(pet_application)
   end
 end
