@@ -12,7 +12,7 @@
   <p>Application Status: <%= @application.status %><br/></p>
 </section>
 
-<% if !@application.pets.empty? %>
+<% if @application.status != "Pending" %>
 <section class="submit-app">
   <%= form_tag "/applications/#{@application.id}", method: :patch do %>
   <p><%= label_tag :why_are_you_a_good_pet_owner %>?</p>
